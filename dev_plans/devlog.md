@@ -34,16 +34,28 @@ Test to see if goes well, if not go the menu method for intuitiveness
 - Currently bind cycle task times to cycle plan, i.e. your old task times of a cycle is cleared when new task begins; new schedule calls for entirely new time tracking
 # Todo
 - Versions
-  - 0.1.0
-  - 0.2.0
-  - 0.3.0
-  - 0.4.0
-  - 0.5.0
-  - 0.6.0
-  - 0.7.0
-  - 0.8.0
-  - 0.9.0
-  - 1.0.0 (main release, core complete)
+  - [ ] 0.1.0
+    - 3 page swipe functionality complete
+  - [ ] 0.2.0
+    - Vertically swippable container complete
+  - [ ] 0.3.0
+    - Timer timing and pause ability complete
+  - [ ] 0.4.0
+    - Task list component complete
+  - [ ] 0.5.0
+    - Task increment component complete
+  - [ ] 0.6.0
+    - Schedule entry component complete
+  - [ ] 0.7.0
+    - Schedule record component complete
+  - [ ] 0.8.0
+    - Linking of timer task display, cycle schedule, schedule time record data object complete (use a single coordinated data object to contain the info ideally, e.g. under the App component)
+  - [ ] 0.9.0
+    - Assembly of 3 tabs of app
+  - [ ] 1.0.0 (main release, core complete)
+    - Bug testing
+    - Beautify
+    - Usability testing on pc, tablet, phone
 # Potential future additions
 - Find way of storing user data, e.g. via google acount or facebook or whatnot so kinda like clockify
 - Analysis of time use in tasks via graphical means (as opposed to a table) on tab 3
