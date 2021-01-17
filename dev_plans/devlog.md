@@ -35,7 +35,7 @@ Test to see if goes well, if not go the menu method for intuitiveness
 # Todo
 - Versions
   - [ ] 0.1.0
-    - 3 page swipe functionality complete
+    - Bottom of page menu
   - [ ] 0.2.0
     - Vertically swippable container complete
   - [ ] 0.3.0
