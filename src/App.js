@@ -59,7 +59,7 @@ class App extends React.Component {
         alignItems="center"
         className={classes.root}
       >
-        <Grid container item>
+        <Grid container item justify="center">
           <PageComponent></PageComponent>
         </Grid>
         <BottomNavigation

@@ -34,10 +34,10 @@ Test to see if goes well, if not go the menu method for intuitiveness
 - Currently bind cycle task times to cycle plan, i.e. your old task times of a cycle is cleared when new task begins; new schedule calls for entirely new time tracking
 # Todo
 - Versions
-  - [ ] 0.1.0
+  - [x] 0.1.0
     - Bottom of page menu
   - [ ] 0.2.0
-    - Vertically swippable container complete
+    - Virtual list of objects
   - [ ] 0.3.0
     - Timer timing and pause ability complete
   - [ ] 0.4.0
