@@ -1,22 +1,38 @@
 import React from 'react';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ListItem from '@material-ui/core/ListItem';
+import PeriodInput from './PeriodInput.js';
 
-class ScheduleEntry extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: props.id,
-            name: props.name
-        };
-    }
-
-    render() {
-        return (
-            <div>
-                <div>Name: {this.state.name}</div>
-                <div>ID: {this.state.id}</div>
-            </div>
-        );
-    }
+export default function ScheduleEntry({entry}) {
+    return (
+        <ListItem divider>
+            <Grid container direction="row" justify="flex-start" alignItems="center">
+                <Grid container item xs={4} sm={4} md={4} lg={4} xl={4} justify="flex-start" alignItems="center">
+                    <Typography item variant="h6" component="h2">{entry.name}</Typography>
+                </Grid>
+                <Grid container item xs={6} sm={6} md={6} lg={6} xl={6} justify="flex-start" alignItems="center">
+                    <PeriodInput defaultValue={entry.period}></PeriodInput>
+                </Grid>
+                <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center">
+                    <ButtonGroup color="primary" disableElevation>
+                        <IconButton>
+                            <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
+                        </IconButton>
+                        <IconButton>
+                            <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
+                        </IconButton>
+                        <IconButton>
+                            <DeleteIcon></DeleteIcon>
+                        </IconButton>
+                    </ButtonGroup>
+                </Grid>
+            </Grid>
+        </ListItem>
+    );
 }
-
-export default ScheduleEntry;

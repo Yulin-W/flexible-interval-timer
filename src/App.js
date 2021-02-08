@@ -3,7 +3,7 @@ import './App.css';
 // Import basic React stuff
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 // Import bottom navigation module
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -20,13 +20,22 @@ import Summary from "./components/Summary.js";
 const useStyles = theme => ({
   // Covers entire viewport
   root: {
-    "min-width": "100vh",
-    height: "100vh"
+    minWidth: "100vh",
+    minHeight: "100vh",
+    maxHeight: "100vh",
+    display: "flex",
+    flexFlow: "column",
+    alignItems: "stretch"
   },
 
-  // Ensures width covers width of parent
+  // Styling for page component if turns out necessary
+  page: {
+    flexGrow: 1,
+  },
+
+  // Styling for navbar if turns out necessary
   navBar: {
-    width: "100%",
+    minHeight: 30
   },
 });
 
@@ -42,7 +51,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageValue: "timer"
+      pageValue: "schedule", // Default page to display
+      taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
+        {name : "Read", period : 145},
+        {name : "Chill", period : 3610},
+        {name : "Exercise", period: 7264},
+      ],
+      taskElapsedTime: {
+
+      }, //FIXME:
+      totalElapsedTime: 0, //FIXME:
+      paused: true,
+    }
+    this.fetchPageData.bind(this);
+  }
+
+  updateSchedule() { //FIXME:
+
+  }
+
+  fetchPageData(key) {
+    if (key==="timer") {
+      return null; //FIXME:
+    } else if (key==="schedule") {
+      return this.state.taskSchedule;
+    } else if (key==="summary") {
+      return null; //FIXME:
+    } else {
+      return null;
     }
   }
 
@@ -51,20 +87,11 @@ class App extends React.Component {
     const { classes } = this.props;
     // Dynamically specifies the pageComponent to be used depending on the currently selected page in the BottomNavigation
     const PageComponent = pageComponents[this.state.pageValue];
+    const pageData = this.fetchPageData(this.state.pageValue);
     return (
-      <Grid
-        container
-        direction="column"
-        justify="space-between"
-        alignItems="center"
-        className={classes.root}
-      >
-        <Grid container item justify="center">
-          <PageComponent></PageComponent>
-        </Grid>
+      <Box className={classes.root}>
+        <PageComponent data={pageData}></PageComponent>
         <BottomNavigation
-          container
-          item
           value={this.state.pageValue}
           onChange={(event, newValue) => {
             this.setState({
@@ -78,7 +105,7 @@ class App extends React.Component {
           <BottomNavigationAction label="Schedule" value="schedule" icon={<ListAltIcon />} />
           <BottomNavigationAction label="Summary" value="summary" icon={<BarChartIcon />} />
         </BottomNavigation>
-      </Grid>
+      </Box>
     );
   }
 }
