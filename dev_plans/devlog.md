@@ -29,25 +29,26 @@
   - Set schedule button: clicking sets in new schedule and jumps back to the timer page, to which user can choose to start the cycle or not; and it clears the old schedules
   - Editing schedule buttons
     - Clear button: clears schedule entirely
+  - All time measured in seconds
 Test to see if goes well, if not go the menu method for intuitiveness
 # Notes
 - Currently bind cycle task times to cycle plan, i.e. your old task times of a cycle is cleared when new task begins; new schedule calls for entirely new time tracking
 # Todo
 - Versions
-  - [ ] 0.1.0
+  - [x] 0.1.0
     - Bottom of page menu
-  - [ ] 0.2.0
-    - Vertically swippable container complete
+  - [x] 0.2.0
+    - Schedule list component
   - [ ] 0.3.0
     - Timer timing and pause ability complete
   - [ ] 0.4.0
-    - Task list component complete
+    - Setting entry in schedule list
   - [ ] 0.5.0
-    - Task increment component complete
+    - Task time increment component complete
   - [ ] 0.6.0
     - Schedule entry component complete
   - [ ] 0.7.0
-    - Schedule record component complete
+    - Schedule elapsed time component complete
   - [ ] 0.8.0
     - Linking of timer task display, cycle schedule, schedule time record data object complete (use a single coordinated data object to contain the info ideally, e.g. under the App component)
   - [ ] 0.9.0
@@ -55,8 +56,9 @@ Test to see if goes well, if not go the menu method for intuitiveness
   - [ ] 1.0.0 (main release, core complete)
     - Bug testing
     - Beautify
-    - Usability testing on pc, tablet, phone
+    - Usability testing on pc, tablet, phone; responsive ui
 # Potential future additions
+- Warn that upon changing your schedule all will be lost to your previous schedule and the clock will reset
 - Find way of storing user data, e.g. via google acount or facebook or whatnot so kinda like clockify
 - Analysis of time use in tasks via graphical means (as opposed to a table) on tab 3
 - Allow exporting of schedule cycle, current execution status, and task time counts to a json file to allow easy loading back (but ideally try to do the online account data store method)
