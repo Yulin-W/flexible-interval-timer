@@ -42,9 +42,9 @@
   - [x] 0.4.0
     - Setting entry in schedule list
   - [ ] 0.5.0
-    - Schedule entry component complete
-  - [ ] 0.6.0
     - Summary component complete
+  - [ ] 0.6.0
+    - Schedule entry component complete
   - [ ] 0.7.0
     - Linking of timer task display, cycle schedule, schedule time record data object complete (use a single coordinated data object to contain the info ideally, e.g. under the App component)
   - [ ] 0.8.0
