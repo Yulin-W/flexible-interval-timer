@@ -41,7 +41,7 @@ Test to see if goes well, if not go the menu method for intuitiveness
     - Schedule list component
   - [x] 0.3.0
     - Timer timing and pause ability complete
-  - [ ] 0.4.0
+  - [x] 0.4.0
     - Setting entry in schedule list
   - [ ] 0.5.0
     - Task time increment component complete
