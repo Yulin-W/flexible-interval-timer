@@ -39,7 +39,7 @@ Test to see if goes well, if not go the menu method for intuitiveness
     - Bottom of page menu
   - [x] 0.2.0
     - Schedule list component
-  - [ ] 0.3.0
+  - [x] 0.3.0
     - Timer timing and pause ability complete
   - [ ] 0.4.0
     - Setting entry in schedule list
