@@ -13,7 +13,7 @@ const useStyles = theme => ({
     // Scrolls if content overflows and set background color
     schedule: {
         backgroundColor: theme.palette.background.paper,
-        overflow: "scroll",
+        overflowY: "scroll",
         flexGrow: 1
     },
     fab: {
