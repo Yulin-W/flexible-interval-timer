@@ -51,24 +51,37 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageValue: "schedule", // Default page to display // FIXME: set the default to timer I'd imagine
+      pageValue: "summary", // Default page to display // FIXME: set the default to timer I'd imagine
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         {name : "Read", period : 145},
         {name : "Chill", period : 3610},
         {name : "Exercise", period: 7264},
       ],
       taskElapsedTime: {
-
-      }, //FIXME:
+      },
       totalElapsedTime: 0, //FIXME:
       paused: true,
     }
     this.fetchPageData = this.fetchPageData.bind(this);
     this.updateSchedule = this.updateSchedule.bind(this);
-  }new
+    this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
+    // Run update schedule elapsed time to initialize the schedule elapsed time
+    this.updateScheduleElapsedTime(this.state.taskSchedule);
+  }
+
+  updateScheduleElapsedTime(newSchedule) {
+    let newTaskElapsedTime = {};
+    this.state.taskSchedule.forEach((entry) => {
+      newTaskElapsedTime[entry.name] = 0;
+    });
+    this.setState({taskElapsedTime: newTaskElapsedTime});
+  }
 
   updateSchedule(newSchedule) {
+    // Sets the new schedule
     this.setState({taskSchedule: newSchedule});
+    // Resets the schedule summary, i.e. the scheduleElaspedTime dictionary in this.state
+    this.updateScheduleElapsedTime(newSchedule);
   }
 
   fetchPageData(key) {
