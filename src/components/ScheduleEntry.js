@@ -9,7 +9,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ListItem from '@material-ui/core/ListItem';
 import PeriodInput from './PeriodInput.js';
 
-export default function ScheduleEntry({editable, entry}) {
+export default function ScheduleEntry({index, editable, entry, upFunc, downFunc, delFunc}) {
     return (
         <ListItem divider>
             <Grid container direction="row" justify="flex-start" alignItems="center">
@@ -21,13 +21,13 @@ export default function ScheduleEntry({editable, entry}) {
                 </Grid>
                 <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center">
                     <ButtonGroup color="primary" disabled={!editable} disableElevation>
-                        <IconButton>
+                        <IconButton onClick={() => {upFunc(index);}}>
                             <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={() => {downFunc(index);}}>
                             <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={() => {delFunc(index);}}>
                             <DeleteIcon></DeleteIcon>
                         </IconButton>
                     </ButtonGroup>

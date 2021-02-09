@@ -35,6 +35,32 @@ class ScheduleComponent extends React.Component {
             editing: false,
         }
         this.setEditing = this.setEditing.bind(this);
+        this.shiftUpEntry = this.shiftUpEntry.bind(this);
+        this.shiftDownEntry = this.shiftDownEntry.bind(this);
+        this.deleteEntry = this.deleteEntry.bind(this);
+        this.addEntry = this.addEntry.bind(this);
+    }
+
+    shiftUpEntry(index) {
+        let currentData = this.state.data;
+        [currentData[index-1], currentData[index]] = [currentData[index], currentData[index-1]];
+        this.setState({data: currentData});
+    }
+
+    shiftDownEntry(index) {
+        let currentData = this.state.data;
+        [currentData[index], currentData[index+1]] = [currentData[index+1], currentData[index]];
+        this.setState({data: currentData});
+    }
+
+    deleteEntry(index) {
+        let currentData = this.state.data;
+        currentData.splice(index, 1);
+        this.setState({data: currentData});
+    }
+
+    addEntry() {
+        ;
     }
 
     setEditing() {
@@ -47,8 +73,16 @@ class ScheduleComponent extends React.Component {
         return (
             <div className={classes.schedule}>
                 <List>
-                    {this.state.data.map((entry) => (
-                        <ScheduleEntry editable={this.state.editing} entry={entry}></ScheduleEntry>
+                    {this.state.data.map((entry, index) => (
+                        <ScheduleEntry
+                            index={index}
+                            editable={this.state.editing}
+                            entry={entry}
+                            upFunc={this.shiftUpEntry}
+                            downFunc={this.shiftDownEntry}
+                            delFunc={this.deleteEntry}
+                        >
+                        </ScheduleEntry>
                     ))}
                 </List>
                 <Fab color="secondary" className={classes.fab} onClick={this.setEditing}>
