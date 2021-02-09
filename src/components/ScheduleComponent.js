@@ -16,8 +16,8 @@ const useStyles = theme => ({
     },
     fab: {
         position: "absolute",
-        bottom: 100,
-        right: 50
+        bottom: 80,
+        right: 40
     }
 });
 
@@ -60,8 +60,10 @@ class ScheduleComponent extends React.Component {
         this.setState({data: currentData});
     }
 
-    addEntry() {
-        ;
+    addEntry(index) {
+        let currentData = this.state.data;
+        currentData.splice(index+1, 0, { name : "New Task", period : 300 });
+        this.setState({data: currentData});
     }
 
     setEditing() {
@@ -84,6 +86,7 @@ class ScheduleComponent extends React.Component {
                             upFunc={this.shiftUpEntry}
                             downFunc={this.shiftDownEntry}
                             delFunc={this.deleteEntry}
+                            addFunc={this.addEntry}
                         >
                         </ScheduleEntry>
                     ))}
