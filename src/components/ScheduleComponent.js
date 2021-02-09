@@ -5,7 +5,9 @@ import ScheduleEntry from './ScheduleEntry.js';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
-
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from "@material-ui/core/IconButton";
+import ListItem from '@material-ui/core/ListItem';
 
 const useStyles = theme => ({
     // Scrolls if content overflows and set background color
@@ -18,6 +20,11 @@ const useStyles = theme => ({
         position: "absolute",
         bottom: 80,
         right: 40
+    },
+    addButtonContainer: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     }
 });
 
@@ -90,6 +97,11 @@ class ScheduleComponent extends React.Component {
                         >
                         </ScheduleEntry>
                     ))}
+                    <ListItem className={classes.addButtonContainer}>
+                        <IconButton disabled={!this.state.editing} color="primary" onClick={() => {this.addEntry(this.state.data.length-1);}}>
+                            <AddIcon></AddIcon>
+                        </IconButton>
+                    </ListItem>
                 </List>
                 <Fab color="secondary" className={classes.fab} onClick={this.setEditing}>
                     {fabIconDict[this.state.editing.toString()]}

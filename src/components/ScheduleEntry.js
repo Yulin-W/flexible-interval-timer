@@ -14,15 +14,15 @@ export default function ScheduleEntry({index, isFirst, isLast, editable, entry, 
 
     return (
         <ListItem divider>
-            <Grid container direction="row" justify="flex-start" alignItems="center">
-                <Grid container item xs={4} sm={4} md={4} lg={4} xl={4} justify="flex-start" alignItems="center">
+            <Grid container direction="row" justify="space-between" alignItems="center">
+                <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-start" alignItems="center">
                     <TextField
                         disabled={!editable}
                         margin="dense"
                         defaultValue={entry.name}
                     />
                 </Grid>
-                <Grid container item xs={6} sm={6} md={6} lg={6} xl={6} justify="flex-start" alignItems="center">
+                <Grid container item xs={8} sm={8} md={8} lg={8} xl={8} justify="center" alignItems="center">
                     <PeriodInput disabled={!editable} defaultValue={entry.period}></PeriodInput>
                 </Grid>
                 <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center">
