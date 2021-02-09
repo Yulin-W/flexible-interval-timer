@@ -1,20 +1,28 @@
 // Import css
 import './App.css';
-// Import basic React stuff
+
+// Import React
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+
+// Import Material UI components
+import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Box from "@material-ui/core/Box";
-// Import bottom navigation module
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+
 // Import icons
 import TimerIcon from "@material-ui/icons/Timer";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import BarChartIcon from '@material-ui/icons/BarChart';
-// Import the 3 pages' components
+
+// Import the 3 pages' custom components
 import TimerComponent from "./components/TimerComponent.js";
 import ScheduleComponent from "./components/ScheduleComponent.js";
 import SummaryComponent from "./components/SummaryComponent.js";
+
+// Import custom theme
+import themeDict from './themeDict.js';
+const theme = createMuiTheme(themeDict);
 
 // Defining styles
 const useStyles = theme => ({
@@ -35,7 +43,6 @@ const useStyles = theme => ({
 
   // Styling for navbar if turns out necessary
   navBar: {
-    minHeight: 30
   },
 });
 
@@ -57,16 +64,16 @@ class App extends React.Component {
         {name : "Chill", period : 3610},
         {name : "Exercise", period: 7264},
       ],
-      taskElapsedTime: {
+      taskElapsedTime: { //FIXME: filling in 0 as initial value
+        "Read": 10,
+        "Chill": 30,
+        "Exercise": 50
       },
-      totalElapsedTime: 0, //FIXME:
       paused: true,
     }
     this.fetchPageData = this.fetchPageData.bind(this);
     this.updateSchedule = this.updateSchedule.bind(this);
     this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
-    // Run update schedule elapsed time to initialize the schedule elapsed time
-    this.updateScheduleElapsedTime(this.state.taskSchedule);
   }
 
   updateScheduleElapsedTime(newSchedule) {
@@ -90,7 +97,7 @@ class App extends React.Component {
     } else if (key==="schedule") {
       return this.state.taskSchedule;
     } else if (key==="summary") {
-      return null; //FIXME:
+      return this.state.taskElapsedTime;
     } else {
       return null;
     }
@@ -102,7 +109,7 @@ class App extends React.Component {
     } else if (key==="schedule") {
       return this.updateSchedule;
     } else if (key==="summary") {
-      return null; //FIXME:
+      return null;
     } else {
       return null;
     }
@@ -116,23 +123,25 @@ class App extends React.Component {
     const pageData = this.fetchPageData(this.state.pageValue);
     const pageFunc = this.fetchPageFunc(this.state.pageValue);
     return (
-      <Box className={classes.root}>
-        <PageComponent data={pageData} func={pageFunc}></PageComponent>
-        <BottomNavigation
-          value={this.state.pageValue}
-          onChange={(event, newValue) => {
-            this.setState({
-              pageValue: newValue
-            });
-          }}
-          showLabels
-          className={classes.navBar}
-        >
-          <BottomNavigationAction label="Timer" value="timer" icon={<TimerIcon />} />
-          <BottomNavigationAction label="Schedule" value="schedule" icon={<ListAltIcon />} />
-          <BottomNavigationAction label="Summary" value="summary" icon={<BarChartIcon />} />
-        </BottomNavigation>
-      </Box>
+      <ThemeProvider theme={theme}>
+        <Box className={classes.root}>
+          <PageComponent data={pageData} func={pageFunc}></PageComponent>
+          <BottomNavigation
+            value={this.state.pageValue}
+            onChange={(event, newValue) => {
+              this.setState({
+                pageValue: newValue
+              });
+            }}
+            showLabels
+            className={classes.navBar}
+          >
+            <BottomNavigationAction label="Timer" value="timer" icon={<TimerIcon />} />
+            <BottomNavigationAction label="Schedule" value="schedule" icon={<ListAltIcon />} />
+            <BottomNavigationAction label="Summary" value="summary" icon={<BarChartIcon />} />
+          </BottomNavigation>
+        </Box>
+      </ThemeProvider>
     );
   }
 }
