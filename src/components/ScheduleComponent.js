@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 
+
 const useStyles = theme => ({
     // Scrolls if content overflows and set background color
     schedule: {
@@ -73,9 +74,11 @@ class ScheduleComponent extends React.Component {
         return (
             <div className={classes.schedule}>
                 <List>
-                    {this.state.data.map((entry, index) => (
+                    {this.state.data.map((entry, index, arr) => (
                         <ScheduleEntry
                             index={index}
+                            isFirst={index === 0}
+                            isLast={index === arr.length - 1}
                             editable={this.state.editing}
                             entry={entry}
                             upFunc={this.shiftUpEntry}
