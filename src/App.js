@@ -58,16 +58,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageValue: "summary", // Default page to display // FIXME: set the default to timer I'd imagine
+      pageValue: "schedule", // Default page to display // FIXME: set the default to timer I'd imagine
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         {name : "Read", period : 145},
-        {name : "Chill", period : 3610},
-        {name : "Exercise", period: 7264},
+        {name : "Chill", period : 304},
+        {name : "Exercise", period: 1800},
       ],
-      taskElapsedTime: { //FIXME: filling in 0 as initial value
-        "Read": 10,
-        "Chill": 30,
-        "Exercise": 50
+      taskElapsedTime: {
+        "Read": 0,
+        "Chill": 0,
+        "Exercise": 0
       },
       paused: true,
     }
