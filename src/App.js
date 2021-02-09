@@ -12,9 +12,9 @@ import TimerIcon from "@material-ui/icons/Timer";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import BarChartIcon from '@material-ui/icons/BarChart';
 // Import the 3 pages' components
-import Timer from "./components/Timer.js";
-import Schedule from "./components/Schedule.js";
-import Summary from "./components/Summary.js";
+import TimerComponent from "./components/TimerComponent.js";
+import ScheduleComponent from "./components/ScheduleComponent.js";
+import SummaryComponent from "./components/SummaryComponent.js";
 
 // Defining styles
 const useStyles = theme => ({
@@ -41,9 +41,9 @@ const useStyles = theme => ({
 
 // Defining a dictionary for the 3 page components
 const pageComponents = {
-  "timer": Timer,
-  "schedule": Schedule,
-  "summary": Summary
+  "timer": TimerComponent,
+  "schedule": ScheduleComponent,
+  "summary": SummaryComponent
 };
 
 // App component class
@@ -51,7 +51,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageValue: "schedule", // Default page to display
+      pageValue: "timer", // Default page to display
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         {name : "Read", period : 145},
         {name : "Chill", period : 3610},
