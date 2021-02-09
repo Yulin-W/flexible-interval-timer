@@ -6,6 +6,7 @@ import TimerDisplay from './TimerDisplay.js';
 import TaskDisplay from './TaskDisplay.js';
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import numPadZeroToTwoPlaces from '../scripts/numPadZeroToTwoPlaces.js';
 
 const useStyles = theme => ({
     timer: {
@@ -38,7 +39,7 @@ class TimerComponent extends React.Component {
                     lastUnit="h" // Only compute time upto hours (not days)
                     startImmediately={false} // Defaults to paused
                     onReset={() => console.log('onReset hook')}
-                    formatValue={(value) => (value.toString().padStart(2, '0'))}
+                    formatValue={numPadZeroToTwoPlaces}
                     checkpoints={[
                         {
                             time: 0,
@@ -58,7 +59,7 @@ class TimerComponent extends React.Component {
                             <ButtonGroup color="primary" size="large" variant="contained" item>
                                 <Button onClick={start}>Start</Button>
                                 <Button onClick={stop}>Stop</Button>
-                                <Button onClick={reset}>Reset</Button>
+                                <Button onClick={() => {stop();reset();}}>Reset</Button>
                             </ButtonGroup>
                         </Grid>
                     )}

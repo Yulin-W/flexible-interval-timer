@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import secondsToHms from '../scripts/secondsToHms.js';
 
 const useStyles = makeStyles((theme) => ({
     periodInput: {
@@ -9,12 +10,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-
-const secondsToHms = s => ({
-    hr: ((s - s % 3600) / 3600) % 60,
-    min: ((s - s % 60) / 60) % 60,
-    sec: s % 60
-})
 
 export default function PeriodInput({ disabled, defaultValue }) { // assumes that input default value for period is in seconds
     const hms = secondsToHms(defaultValue);
