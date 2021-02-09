@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SummaryComponent({data}) {
+export default function SummaryComponent({data, func}) {
     const classes = useStyles();
     return (
         <div className={classes.summary}>Summary Page incomplete</div>

@@ -3,25 +3,26 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  periodInput: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
+    periodInput: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+        },
     },
-  },
 }));
 
 const secondsToHms = s => ({
-    hr: ((s - s % 3600) / 3600) % 60, 
-    min: ((s - s % 60) / 60) % 60, 
+    hr: ((s - s % 3600) / 3600) % 60,
+    min: ((s - s % 60) / 60) % 60,
     sec: s % 60
 })
 
-export default function PeriodInput({ defaultValue }) { // assumes that input default value for period is in seconds
+export default function PeriodInput({ disabled, defaultValue }) { // assumes that input default value for period is in seconds
     const hms = secondsToHms(defaultValue);
     const classes = useStyles();
     return (
         <div className={classes.periodInput}>
             <TextField
+                disabled={disabled}
                 margin="dense"
                 label="Hr"
                 defaultValue={hms.hr}
@@ -31,6 +32,7 @@ export default function PeriodInput({ defaultValue }) { // assumes that input de
                 }}
             />
             <TextField
+                disabled={disabled}
                 margin="dense"
                 label="Min"
                 defaultValue={hms.min}
@@ -40,6 +42,7 @@ export default function PeriodInput({ defaultValue }) { // assumes that input de
                 }}
             />
             <TextField
+                disabled={disabled}
                 margin="dense"
                 label="Sec"
                 defaultValue={hms.sec}

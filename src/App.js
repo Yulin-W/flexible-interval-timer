@@ -51,7 +51,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageValue: "timer", // Default page to display
+      pageValue: "schedule", // Default page to display // FIXME: set the default to timer I'd imagine
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         {name : "Read", period : 145},
         {name : "Chill", period : 3610},
@@ -63,11 +63,12 @@ class App extends React.Component {
       totalElapsedTime: 0, //FIXME:
       paused: true,
     }
-    this.fetchPageData.bind(this);
-  }
+    this.fetchPageData = this.fetchPageData.bind(this);
+    this.updateSchedule = this.updateSchedule.bind(this);
+  }new
 
-  updateSchedule() { //FIXME:
-
+  updateSchedule(newSchedule) {
+    this.setState({taskSchedule: newSchedule});
   }
 
   fetchPageData(key) {
@@ -82,15 +83,28 @@ class App extends React.Component {
     }
   }
 
+  fetchPageFunc(key) {
+    if (key==="timer") {
+      return null; //FIXME:
+    } else if (key==="schedule") {
+      return this.updateSchedule;
+    } else if (key==="summary") {
+      return null; //FIXME:
+    } else {
+      return null;
+    }
+  }
+
   render() {
     // For allowing using our custom style
     const { classes } = this.props;
     // Dynamically specifies the pageComponent to be used depending on the currently selected page in the BottomNavigation
     const PageComponent = pageComponents[this.state.pageValue];
     const pageData = this.fetchPageData(this.state.pageValue);
+    const pageFunc = this.fetchPageFunc(this.state.pageValue);
     return (
       <Box className={classes.root}>
-        <PageComponent data={pageData}></PageComponent>
+        <PageComponent data={pageData} func={pageFunc}></PageComponent>
         <BottomNavigation
           value={this.state.pageValue}
           onChange={(event, newValue) => {
