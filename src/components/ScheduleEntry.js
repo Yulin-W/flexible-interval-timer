@@ -11,7 +11,7 @@ import PeriodInput from './PeriodInput.js';
 import TextField from '@material-ui/core/TextField';
 
 export default function ScheduleEntry({index, isFirst, isLast, editable, entry, upFunc, downFunc, delFunc, addFunc}) {
-
+    console.log(entry.name);
     return (
         <ListItem divider>
             <Grid container direction="row" justify="space-between" alignItems="center">
@@ -19,7 +19,7 @@ export default function ScheduleEntry({index, isFirst, isLast, editable, entry, 
                     <TextField
                         disabled={!editable}
                         margin="dense"
-                        defaultValue={entry.name}
+                        value={entry.name}
                     />
                 </Grid>
                 <Grid container item xs={8} sm={8} md={8} lg={8} xl={8} justify="center" alignItems="center">

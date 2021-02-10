@@ -80,23 +80,24 @@ class ScheduleComponent extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const entries = this.state.data.map((entry, index, arr) => (
+            <ScheduleEntry
+                index={index}
+                isFirst={index === 0}
+                isLast={index === arr.length - 1}
+                editable={this.state.editing}
+                entry={entry}
+                upFunc={this.shiftUpEntry}
+                downFunc={this.shiftDownEntry}
+                delFunc={this.deleteEntry}
+                addFunc={this.addEntry}
+            >
+            </ScheduleEntry>
+        ));
         return (
             <div className={classes.schedule}>
                 <List>
-                    {this.state.data.map((entry, index, arr) => (
-                        <ScheduleEntry
-                            index={index}
-                            isFirst={index === 0}
-                            isLast={index === arr.length - 1}
-                            editable={this.state.editing}
-                            entry={entry}
-                            upFunc={this.shiftUpEntry}
-                            downFunc={this.shiftDownEntry}
-                            delFunc={this.deleteEntry}
-                            addFunc={this.addEntry}
-                        >
-                        </ScheduleEntry>
-                    ))}
+                    {entries}
                     <ListItem className={classes.addButtonContainer}>
                         <IconButton disabled={!this.state.editing} color="primary" onClick={() => {this.addEntry(this.state.data.length-1);}}>
                             <AddIcon></AddIcon>

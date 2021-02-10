@@ -20,7 +20,7 @@ export default function PeriodInput({ disabled, defaultValue }) { // assumes tha
                 disabled={disabled}
                 margin="dense"
                 label="Hr"
-                defaultValue={hms.hr}
+                value={hms.hr}
                 type="number"
                 InputLabelProps={{
                     shrink: true,
@@ -30,7 +30,7 @@ export default function PeriodInput({ disabled, defaultValue }) { // assumes tha
                 disabled={disabled}
                 margin="dense"
                 label="Min"
-                defaultValue={hms.min}
+                value={hms.min}
                 type="number"
                 InputLabelProps={{
                     shrink: true,
@@ -40,7 +40,7 @@ export default function PeriodInput({ disabled, defaultValue }) { // assumes tha
                 disabled={disabled}
                 margin="dense"
                 label="Sec"
-                defaultValue={hms.sec}
+                value={hms.sec}
                 type="number"
                 InputLabelProps={{
                     shrink: true,
