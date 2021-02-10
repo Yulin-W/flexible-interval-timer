@@ -60,14 +60,14 @@ class App extends React.Component {
     this.state = {
       pageValue: "schedule", // Default page to display // FIXME: set the default to timer I'd imagine
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
-        {name : "Read", period : 145},
-        {name : "Chill", period : 304},
-        {name : "Exercise", period: 1800},
+        {name : "Here's a task", period : 300},
+        {name : "Here's another", period : 600},
+        {name : "And a third", period: 1200},
       ],
       taskElapsedTime: {
-        "Read": 0,
-        "Chill": 0,
-        "Exercise": 0
+        "Here's a task": 0,
+        "Here's another": 0,
+        "And a third": 0
       },
       paused: true,
     }
