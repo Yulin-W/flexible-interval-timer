@@ -86,7 +86,7 @@ class App extends React.Component {
 
   updateSchedule(newSchedule) {
     // Sets the new schedule
-    this.setState({taskSchedule: newSchedule});
+    this.setState({taskSchedule: newSchedule}, () => {console.log(this.state.taskSchedule)});
     // Resets the schedule summary, i.e. the scheduleElaspedTime dictionary in this.state
     this.updateScheduleElapsedTime(newSchedule);
   }

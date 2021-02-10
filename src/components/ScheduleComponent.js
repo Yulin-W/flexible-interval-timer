@@ -8,6 +8,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from "@material-ui/core/IconButton";
 import ListItem from '@material-ui/core/ListItem';
+import secondsToHms from '../scripts/secondsToHms.js';
+import hmsToSeconds from '../scripts/hmsToSeconds.js';
 
 const useStyles = theme => ({
     // Scrolls if content overflows and set background color
@@ -37,16 +39,16 @@ class ScheduleComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentTask: "Current Task",
-            nextTask: "Next Task",
-            data: props.data,
+            data: props.data.map(entry => ({name:entry.name, ...secondsToHms(entry.period)})), // converts entries to have period split into hr, min, sec attributes
             editing: false,
         }
+        this.updateSchedule = props.func;
         this.setEditing = this.setEditing.bind(this);
         this.shiftUpEntry = this.shiftUpEntry.bind(this);
         this.shiftDownEntry = this.shiftDownEntry.bind(this);
         this.deleteEntry = this.deleteEntry.bind(this);
         this.addEntry = this.addEntry.bind(this);
+        this.editEntry = this.editEntry.bind(this);
     }
 
     shiftUpEntry(index) {
@@ -69,13 +71,32 @@ class ScheduleComponent extends React.Component {
 
     addEntry(index) {
         let currentData = this.state.data;
-        currentData.splice(index+1, 0, { name : "New Task", period : 300 });
+        currentData.splice(index+1, 0, { name : "New Task", hr : 0, min : 5, sec : 0 }); // Adding the default new task
         this.setState({data: currentData});
     }
 
     setEditing() {
         const currentEditingState = this.state.editing;
+        // Update corresponding state for schedule data in parent App component given that status before edit button press was in editing, i.e. the press was to confirm the edit
+        if (currentEditingState) {
+            let newSchedule = this.state.data.map(entry => ({
+                name : entry.name,
+                period : hmsToSeconds({
+                    hr : entry.hr,
+                    min : entry.min,
+                    sec : entry.sec
+                })
+            }))
+            this.updateSchedule(newSchedule);
+        }
         this.setState({editing: !currentEditingState});
+    }
+
+    // Edits given attribute of entry (of given index) in state.data to specified value
+    editEntry(index, key, value) {
+        let currentData = this.state.data;
+        currentData[index][key] = value;
+        this.setState({data: currentData});
     }
 
     render() {
@@ -91,6 +112,7 @@ class ScheduleComponent extends React.Component {
                 downFunc={this.shiftDownEntry}
                 delFunc={this.deleteEntry}
                 addFunc={this.addEntry}
+                editFunc={this.editEntry}
             >
             </ScheduleEntry>
         ));

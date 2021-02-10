@@ -10,8 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import PeriodInput from './PeriodInput.js';
 import TextField from '@material-ui/core/TextField';
 
-export default function ScheduleEntry({index, isFirst, isLast, editable, entry, upFunc, downFunc, delFunc, addFunc}) {
-    console.log(entry.name);
+export default function ScheduleEntry({index, isFirst, isLast, editable, entry, upFunc, downFunc, delFunc, addFunc, editFunc}) {
     return (
         <ListItem divider>
             <Grid container direction="row" justify="space-between" alignItems="center">
@@ -20,10 +19,11 @@ export default function ScheduleEntry({index, isFirst, isLast, editable, entry, 
                         disabled={!editable}
                         margin="dense"
                         value={entry.name}
+                        onChange={(e) => {editFunc(index, "name", e.target.value)}}
                     />
                 </Grid>
                 <Grid container item xs={8} sm={8} md={8} lg={8} xl={8} justify="center" alignItems="center">
-                    <PeriodInput disabled={!editable} defaultValue={entry.period}></PeriodInput>
+                    <PeriodInput disabled={!editable} hr={entry.hr} min={entry.min} sec={entry.sec} editFunc={editFunc} index={index}></PeriodInput>
                 </Grid>
                 <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center">
                     <ButtonGroup color="primary" disabled={!editable} disableElevation>
