@@ -56,6 +56,7 @@
   - [ ] 1.0.0 (main release, core complete)
     - Bug testing
     - Beautify
+      - Change favIcon
     - Usability testing on pc, tablet, phone; responsive ui
 # Potential future additions
 - Updating schedule button would send you back to the timer page
