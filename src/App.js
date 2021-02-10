@@ -64,7 +64,7 @@ class App extends React.Component {
         {name : "Chill", period : 304},
         {name : "Exercise", period: 1800},
       ],
-      taskElapsedTime: {
+      taskElapsedTime: { // TODO: avoid manually hardcoding to this correspone dto taskSchedule, but call the schedule Elapsed Time update function instead?
         "Read": 0,
         "Chill": 0,
         "Exercise": 0
@@ -76,6 +76,7 @@ class App extends React.Component {
     this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
   }
 
+  // Updating scheduleElapsedTime state attribute given newSchedule object
   updateScheduleElapsedTime(newSchedule) {
     let newTaskElapsedTime = {};
     this.state.taskSchedule.forEach((entry) => {
@@ -84,6 +85,7 @@ class App extends React.Component {
     this.setState({taskElapsedTime: newTaskElapsedTime});
   }
 
+  // Update taskSchedule state attribute to be the same as the given newSchedule object
   updateSchedule(newSchedule) {
     // Sets the new schedule
     this.setState({taskSchedule: newSchedule});
@@ -91,6 +93,7 @@ class App extends React.Component {
     this.updateScheduleElapsedTime(newSchedule);
   }
 
+  // Given key, fetches the relevant data to be passed down as props to the pageComponent
   fetchPageData(key) {
     if (key==="timer") {
       return null; //FIXME:
@@ -103,6 +106,7 @@ class App extends React.Component {
     }
   }
 
+  // Given key, fetches the relevant function to be passed down as props to the pageComponent
   fetchPageFunc(key) {
     if (key==="timer") {
       return null; //FIXME:
