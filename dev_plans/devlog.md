@@ -43,7 +43,7 @@
     - Setting entry in schedule list
   - [x] 0.5.0
     - Summary component complete
-  - [ ] 0.6.0
+  - [x] 0.6.0
     - Schedule entry component complete
     - For sake of laziness and because it actually turns out more versatile, time inputs into schedule does not need to be in hhmmss format, e.g. inputting 90min is allowed
   - [ ] 0.7.0
