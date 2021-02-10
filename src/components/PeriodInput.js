@@ -1,7 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import secondsToHms from '../scripts/secondsToHms.js';
 
 const useStyles = makeStyles((theme) => ({
     periodInput: {
@@ -11,8 +10,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PeriodInput({ disabled, defaultValue }) { // assumes that input default value for period is in seconds
-    const hms = secondsToHms(defaultValue);
+export default function PeriodInput({ disabled, hr, min, sec, editFunc, index }) { // assumes that input default value for period is in seconds
     const classes = useStyles();
     return (
         <div className={classes.periodInput}>
@@ -20,8 +18,9 @@ export default function PeriodInput({ disabled, defaultValue }) { // assumes tha
                 disabled={disabled}
                 margin="dense"
                 label="Hr"
-                defaultValue={hms.hr}
+                value={hr}
                 type="number"
+                onChange={(e) => {editFunc(index, "hr", Number(e.target.value));}} // FIXME: whilst this avoid the dodgy string input case, it also means I cannot make input empty, i.e. delete a remaining 0
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -30,8 +29,9 @@ export default function PeriodInput({ disabled, defaultValue }) { // assumes tha
                 disabled={disabled}
                 margin="dense"
                 label="Min"
-                defaultValue={hms.min}
+                value={min}
                 type="number"
+                onChange={(e) => {editFunc(index, "min", Number(e.target.value));}}
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -40,8 +40,9 @@ export default function PeriodInput({ disabled, defaultValue }) { // assumes tha
                 disabled={disabled}
                 margin="dense"
                 label="Sec"
-                defaultValue={hms.sec}
+                value={sec}
                 type="number"
+                onChange={(e) => {editFunc(index, "sec", Number(e.target.value));}}
                 InputLabelProps={{
                     shrink: true,
                 }}
