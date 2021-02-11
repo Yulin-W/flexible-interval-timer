@@ -69,3 +69,4 @@
 - Allow tasks to have descriptions added to them; but the timing is still counted as under the same overall task (though records will show finer sub tasks under the main task time)
 - Allow time change by directly clicking and inputing time to schedule entry
 - Make work well on a phone, i.e. be like a progressive webapp
+- App.js file is too large, shorten it down
