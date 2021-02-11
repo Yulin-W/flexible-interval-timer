@@ -109,7 +109,7 @@ class App extends React.Component {
         current : this.state.taskSchedule[this.state.current].name,
         next : this.nextTask(this.state.current),
         ...extraData
-      }; //FIXME:
+      };
     } else if (key === "schedule") {
       return this.state.taskSchedule;
     } else if (key === "summary") {
