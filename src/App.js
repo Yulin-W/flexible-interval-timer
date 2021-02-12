@@ -26,6 +26,7 @@ import numPadZeroToTwoPlaces from './scripts/numPadZeroToTwoPlaces.js';
 
 // Import custom theme
 import themeDict from './themeDict.js';
+import hmsToSeconds from './scripts/hmsToSeconds';
 const theme = createMuiTheme(themeDict);
 
 // Defining styles
@@ -64,9 +65,9 @@ class App extends React.Component {
     this.state = {
       pageValue: "timer", // Default page to display // FIXME: set the default to timer I'd imagine
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
-        { name: "Here's a task", period: 300 },
-        { name: "Here's another", period: 600 },
-        { name: "And a third", period: 1200 },
+        { name: "Here's a task", period: 5 },
+        { name: "Here's another", period: 10 },
+        { name: "And a third", period: 15 },
       ],
       taskElapsedTime: {
         "Here's a task": 0,
@@ -98,8 +99,16 @@ class App extends React.Component {
   }
 
   nextTask(current) {
+    // Returns name of next task in schedule given index of current task in taskSchedule
     // current is expected to be an integer index corresponding to the task in the taskSchedule list
     return this.state.taskSchedule[(current+1) % this.state.taskSchedule.length].name;
+  }
+
+  startNextTask() {
+    // Updates state such that the next task is started
+    let current = this.state.current;
+    current = (current+1) % this.state.taskSchedule.length;
+    this.setState({current : current});
   }
 
   fetchPageData(key, extraData) {
@@ -137,20 +146,22 @@ class App extends React.Component {
     // Dynamically specifies the pageComponent to be used depending on the currently selected page in the BottomNavigation
     const PageComponent = pageComponents[this.state.pageValue];
     const pageFunc = this.fetchPageFunc(this.state.pageValue);
+    console.log(this.state.taskSchedule[this.state.current].period);
     return (
       <ThemeProvider theme={theme}>
         <Box className={classes.root}>
           <Timer
-            initialTime={10 * 60 * 1000} // This is in ms as that is what this imported component uses
+            initialTime={1000*this.state.taskSchedule[this.state.current].period} // This is in ms as that is what this imported component uses
             direction="backward"
             lastUnit="h" // Only compute time upto hours (not days)
             startImmediately={false} // Defaults to paused
             onReset={() => console.log('onReset hook')}
             formatValue={numPadZeroToTwoPlaces}
+            timeToUpdate={200}
             checkpoints={[
               {
                 time: 0,
-                callback: () => { console.log("Need to put go to next task function here, i think it shoudl be a function that is passed down from parent"); }
+                callback: () => { this.startNextTask();}
               }
             ]}
           >
