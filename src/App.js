@@ -58,6 +58,33 @@ const pageComponents = {
   "summary": SummaryComponent
 };
 
+// Code to dynamically reset timer when task is complete and next one begins
+// This returns a React component function that returns a Timer component with a wrappedComponent within it
+const withTimer = props => WrappedComponent => wrappedComponentProps => (
+  <Timer {...props}>
+      {renderProps => <WrappedComponent {...wrappedComponentProps} timer={renderProps} />}
+  </Timer>
+);
+
+class ClockDown extends React.Component {
+  componentDidMount() {
+      // console.log(this.props.timer); FIXME: remove this
+      const { setCheckpoints, setTime, start } = this.props.timer;
+
+      setCheckpoints([
+          {
+              time: 999,
+              callback: () => {setTime(9999);start();},
+          },
+      ]);
+  }
+  render() {
+      return (
+          <Timer.Seconds />
+      );
+  }
+}
+
 // App component class
 class App extends React.Component {
   constructor(props) {
@@ -143,12 +170,26 @@ class App extends React.Component {
   render() {
     // For allowing using our custom style
     const { classes } = this.props;
+
     // Dynamically specifies the pageComponent to be used depending on the currently selected page in the BottomNavigation
     const PageComponent = pageComponents[this.state.pageValue];
     const pageFunc = this.fetchPageFunc(this.state.pageValue);
     console.log(this.state.taskSchedule[this.state.current].period);
+
+    // Initialize timer
+    const Tii = withTimer({
+      direction: 'backward',
+      initialTime: 1000*this.state.taskSchedule[this.state.current].period, // This is in ms as that is what this imported component uses
+      startImmediately: true, // Defaults to paused //FIXME: link up to the start pause things
+      lastUnit: "h", // Only compute time upto hours (not days)
+      onReset: () => console.log('onReset hook'),
+      formatValue: numPadZeroToTwoPlaces,
+      timeToUpdate: 200, // In ms as that is the component's unit
+    })(ClockDown);
+
     return (
       <ThemeProvider theme={theme}>
+        <Tii/>
         <Box className={classes.root}>
           <Timer
             initialTime={1000*this.state.taskSchedule[this.state.current].period} // This is in ms as that is what this imported component uses
