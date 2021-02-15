@@ -25,10 +25,6 @@ const useStyles = theme => ({
 });
 
 class TimerComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { classes } = this.props;
         const { start, stop, reset, current, next, hr, min, sec } = this.props.data;

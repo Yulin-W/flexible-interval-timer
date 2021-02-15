@@ -111,13 +111,22 @@ class App extends React.Component {
     return this.state.taskSchedule[(current+1) % this.state.taskSchedule.length].name;
   }
 
+  // Updates state such that the next task is started and timer has countdown set to corresponding period, also adds the time of the finished task to corresponding elapsed time entry
   startNextTask() {
-    // Updates state such that the next task is started
     let current = this.state.current;
+
+    // Update elapsed time for the completed current task
+    let currentTaskElapsedTime = this.state.taskElapsedTime;
+    currentTaskElapsedTime[this.state.taskSchedule[current].name] += this.state.taskSchedule[current].period;
+    this.setState({taskElapsedTime: currentTaskElapsedTime});
+
+    // Set up next task
     current = (current+1) % this.state.taskSchedule.length;
     this.setState({current : current});
     this.timerRef.current.setTime(1000*this.state.taskSchedule[current].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
     this.timerRef.current.start();
+
+    console.log(currentTaskElapsedTime);
   }
 
   fetchPageData(key, extraData) {

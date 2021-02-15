@@ -52,6 +52,7 @@
     - Assembly of 3 pages of app
   - [ ] 0.9.0
     - Notifications for new task
+    - Add total time elapsed display in summary page
   - [ ] 0.10.0
     - Responsiveness check to ensure works well on mobile
   - [ ] 1.0.0 (main release, core complete)
@@ -61,6 +62,7 @@
     - Usability testing on pc, tablet, phone; responsive ui
 # Potential future additions
 - Updating schedule button would send you back to the timer page
+- Make elapsed time update per second or be synchrous with timer instead of updating only upon task completion
 - Clear schedule button: clears schedule entirely
 - Warn that upon changing your schedule all will be lost to your previous schedule and the clock will reset
 - Find way of storing user data, e.g. via google acount or facebook or whatnot so kinda like clockify
