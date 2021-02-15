@@ -7,8 +7,8 @@ import React from 'react';
 // Import Material UI components
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Box from "@material-ui/core/Box";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+/BottomNavigation";
+import BottomNavigation from "@material-ui/coreimport BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 // Import icons
 import TimerIcon from "@material-ui/icons/Timer";
