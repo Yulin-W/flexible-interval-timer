@@ -12,7 +12,7 @@ export default function TaskDisplay({current, next}) {
     return (
         <Grid container direction="column" alignItems="center">
             <Typography item variant="h2">{current}</Typography>
-            <Typography item variant="h5">{next}</Typography>
+            <Typography item variant="h5">Next: {next}</Typography>
         </Grid>
     );
 }
