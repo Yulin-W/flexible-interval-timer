@@ -51,11 +51,8 @@
   - [ ] 0.8.0
     - Notifications for new task (use some offline voice engine ideally, though if not can start with google's online one)
   - [ ] 0.9.0
-<<<<<<< Updated upstream
     - Notifications for new task
-=======
     - Add total time elapsed display in summary page
->>>>>>> Stashed changes
   - [ ] 0.10.0
     - Schedule repeat or not repeat functionality
   - [ ] 0.11.0
@@ -67,6 +64,7 @@
     - Usability testing on pc, tablet, phone; responsive ui
 # Potential future additions
 - Updating schedule button would send you back to the timer page
+- Make elapsed time update per second or be synchrous with timer instead of updating only upon task completion
 - Clear schedule button: clears schedule entirely
 - Warn that upon changing your schedule all will be lost to your previous schedule and the clock will reset
 - Find way of storing user data, e.g. via google acount or facebook or whatnot so kinda like clockify
@@ -75,3 +73,4 @@
 - Allow tasks to have descriptions added to them; but the timing is still counted as under the same overall task (though records will show finer sub tasks under the main task time)
 - Allow time change by directly clicking and inputing time to schedule entry
 - Make work well on a phone, i.e. be like a progressive webapp
+- App.js file is too large, shorten it down
