@@ -26,7 +26,6 @@ import numPadZeroToTwoPlaces from './scripts/numPadZeroToTwoPlaces.js';
 
 // Import custom theme
 import themeDict from './themeDict.js';
-import hmsToSeconds from './scripts/hmsToSeconds';
 const theme = createMuiTheme(themeDict);
 
 // Defining styles
@@ -74,17 +73,20 @@ class App extends React.Component {
         { name: "Here's another", period: 10 },
         { name: "And a third", period: 15 },
       ],
-      taskElapsedTime: {},
+      taskElapsedTime: { // Default taskElapsedTime corresponding to default taskSchedule
+        "Here's a task": 0,
+        "Here's another": 0,
+        "And a third": 0
+      },
       current: 0, // Default index for task, i.e. start by default on first task with index 0 in this.state.taskSchedule
-      paused: true,
     }
 
     // Binding methods to this
     this.nextTask = this.nextTask.bind(this);
     this.fetchPageData = this.fetchPageData.bind(this);
     this.updateSchedule = this.updateSchedule.bind(this);
-
-    // Initialising scheduleElapsedTime state attribute based on currently defined state values (note before calling this, that attribute is empty, i.e. uninitialized in the above declaration)
+    this.startNextTask = this.startNextTask.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
     this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
   }
 
@@ -98,7 +100,7 @@ class App extends React.Component {
 
   updateSchedule(newSchedule) {
     // Sets the new schedule
-    this.setState({ taskSchedule: newSchedule }, () => { console.log(this.state.taskSchedule) });
+    this.setState({ taskSchedule: newSchedule });
     // Resets the schedule summary, i.e. the scheduleElaspedTime dictionary in this.state
     this.updateScheduleElapsedTime(newSchedule);
   }
@@ -137,7 +139,7 @@ class App extends React.Component {
 
   fetchPageFunc(key) {
     if (key === "timer") {
-      return null; //FIXME:
+      return null;
     } else if (key === "schedule") {
       return this.updateSchedule;
     } else if (key === "summary") {
@@ -145,6 +147,13 @@ class App extends React.Component {
     } else {
       return null;
     }
+  }
+
+  // Resets task to first task and clears out elapsed time and setTime
+  resetTimer() {
+    this.setState({current : 0});
+    this.updateScheduleElapsedTime(this.state.taskSchedule);
+    this.timerRef.current.setTime(1000*this.state.taskSchedule[0].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
   }
 
   render() {
@@ -163,7 +172,7 @@ class App extends React.Component {
             direction="backward"
             lastUnit="h" // Only compute time upto hours (not days)
             startImmediately={false} // Defaults to paused
-            onReset={() => console.log('onReset hook')}
+            onReset={() => {this.resetTimer();}}
             formatValue={numPadZeroToTwoPlaces}
             timeToUpdate={200}
             checkpoints={[
