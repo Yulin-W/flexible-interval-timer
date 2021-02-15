@@ -58,37 +58,15 @@ const pageComponents = {
   "summary": SummaryComponent
 };
 
-// Code to dynamically reset timer when task is complete and next one begins
-// This returns a React component function that returns a Timer component with a wrappedComponent within it
-const withTimer = props => WrappedComponent => wrappedComponentProps => (
-  <Timer {...props}>
-      {renderProps => <WrappedComponent {...wrappedComponentProps} timer={renderProps} />}
-  </Timer>
-);
-
-class ClockDown extends React.Component {
-  componentDidMount() {
-      // console.log(this.props.timer); FIXME: remove this
-      const { setCheckpoints, setTime, start } = this.props.timer;
-
-      setCheckpoints([
-          {
-              time: 999,
-              callback: () => {setTime(9999);start();},
-          },
-      ]);
-  }
-  render() {
-      return (
-          <Timer.Seconds />
-      );
-  }
-}
-
 // App component class
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    // Code for allowing parent to use the setTime method of its children
+    this.timerRef = React.createRef(); // TODO: using refs is a bad pattern indeed, so maybe write own timer component to make accessing setTime easier
+
+    // State declaration
     this.state = {
       pageValue: "timer", // Default page to display // FIXME: set the default to timer I'd imagine
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
@@ -96,17 +74,17 @@ class App extends React.Component {
         { name: "Here's another", period: 10 },
         { name: "And a third", period: 15 },
       ],
-      taskElapsedTime: {
-        "Here's a task": 0,
-        "Here's another": 0,
-        "And a third": 0
-      },
+      taskElapsedTime: {},
       current: 0, // Default index for task, i.e. start by default on first task with index 0 in this.state.taskSchedule
       paused: true,
     }
+
+    // Binding methods to this
     this.nextTask = this.nextTask.bind(this);
     this.fetchPageData = this.fetchPageData.bind(this);
     this.updateSchedule = this.updateSchedule.bind(this);
+
+    // Initialising scheduleElapsedTime state attribute based on currently defined state values (note before calling this, that attribute is empty, i.e. uninitialized in the above declaration)
     this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
   }
 
@@ -136,6 +114,8 @@ class App extends React.Component {
     let current = this.state.current;
     current = (current+1) % this.state.taskSchedule.length;
     this.setState({current : current});
+    this.timerRef.current.setTime(1000*this.state.taskSchedule[current].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
+    this.timerRef.current.start();
   }
 
   fetchPageData(key, extraData) {
@@ -174,25 +154,12 @@ class App extends React.Component {
     // Dynamically specifies the pageComponent to be used depending on the currently selected page in the BottomNavigation
     const PageComponent = pageComponents[this.state.pageValue];
     const pageFunc = this.fetchPageFunc(this.state.pageValue);
-    console.log(this.state.taskSchedule[this.state.current].period);
-
-    // Initialize timer
-    const Tii = withTimer({
-      direction: 'backward',
-      initialTime: 1000*this.state.taskSchedule[this.state.current].period, // This is in ms as that is what this imported component uses
-      startImmediately: true, // Defaults to paused //FIXME: link up to the start pause things
-      lastUnit: "h", // Only compute time upto hours (not days)
-      onReset: () => console.log('onReset hook'),
-      formatValue: numPadZeroToTwoPlaces,
-      timeToUpdate: 200, // In ms as that is the component's unit
-    })(ClockDown);
 
     return (
       <ThemeProvider theme={theme}>
-        <Tii/>
         <Box className={classes.root}>
           <Timer
-            initialTime={1000*this.state.taskSchedule[this.state.current].period} // This is in ms as that is what this imported component uses
+            initialTime={1000*this.state.taskSchedule[this.state.current].period + 999} // This is in ms as that is what this imported component uses, + 999 in order to shift times in this app by 999 so to complement how we want our timer to jump to next start time instead of turning to 0 (i.e. checkpoint time is 999 not 0)
             direction="backward"
             lastUnit="h" // Only compute time upto hours (not days)
             startImmediately={false} // Defaults to paused
@@ -201,12 +168,13 @@ class App extends React.Component {
             timeToUpdate={200}
             checkpoints={[
               {
-                time: 0,
+                time: 999,
                 callback: () => { this.startNextTask();}
               }
             ]}
+            ref={this.timerRef}
           >
-            {({ start, stop, reset }) => (
+            {({ start, stop, reset}) => (
               <PageComponent
                 data={this.fetchPageData(this.state.pageValue, {
                   start : start,
