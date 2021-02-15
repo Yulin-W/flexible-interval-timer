@@ -125,8 +125,6 @@ class App extends React.Component {
     this.setState({current : current});
     this.timerRef.current.setTime(1000*this.state.taskSchedule[current].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
     this.timerRef.current.start();
-
-    console.log(currentTaskElapsedTime);
   }
 
   fetchPageData(key, extraData) {

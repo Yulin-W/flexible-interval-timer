@@ -46,7 +46,7 @@
   - [x] 0.6.0
     - Schedule entry component complete
     - For sake of laziness and because it actually turns out more versatile, time inputs into schedule does not need to be in hhmmss format, e.g. inputting 90min is allowed
-  - [ ] 0.7.0
+  - [x] 0.7.0
     - Linking of timer task display, cycle schedule, schedule time record data object complete (use a single coordinated data object to contain the info ideally, e.g. under the App component)
   - [ ] 0.8.0
     - Notifications for new task (use some offline voice engine ideally, though if not can start with google's online one)
@@ -62,6 +62,10 @@
     - Beautify
       - Change favIcon
     - Usability testing on pc, tablet, phone; responsive ui
+# Future todo
+- Thin down code
+- Resolve those TODOs of problems in code
+- Resolve the warnings that appear in console
 # Potential future additions
 - Updating schedule button would send you back to the timer page
 - Make elapsed time update per second or be synchrous with timer instead of updating only upon task completion
