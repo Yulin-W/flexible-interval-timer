@@ -49,10 +49,16 @@
   - [ ] 0.7.0
     - Linking of timer task display, cycle schedule, schedule time record data object complete (use a single coordinated data object to contain the info ideally, e.g. under the App component)
   - [ ] 0.8.0
-    - Assembly of 3 pages of app
+    - Notifications for new task (use some offline voice engine ideally, though if not can start with google's online one)
   - [ ] 0.9.0
+<<<<<<< Updated upstream
     - Notifications for new task
+=======
+    - Add total time elapsed display in summary page
+>>>>>>> Stashed changes
   - [ ] 0.10.0
+    - Schedule repeat or not repeat functionality
+  - [ ] 0.11.0
     - Responsiveness check to ensure works well on mobile
   - [ ] 1.0.0 (main release, core complete)
     - Bug testing
