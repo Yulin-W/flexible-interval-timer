@@ -87,7 +87,23 @@ class App extends React.Component {
     this.updateSchedule = this.updateSchedule.bind(this);
     this.startNextTask = this.startNextTask.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.startTimer = this.startTimer.bind(this);
     this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
+    this.showNotification = this.showNotification.bind(this);
+  }
+
+  componentDidMount() {
+    // Code for requesting permission to send notifications
+    if (!("Notification" in window)) {
+      console.log("This browser does not support desktop notification");
+    } else {
+      Notification.requestPermission();
+    }
+  }
+
+  // Method to show specified content in the arguments as a notification, expects content to be a string
+  showNotification(content) {
+    new Notification(content);
   }
 
   updateScheduleElapsedTime(newSchedule) {
@@ -163,6 +179,11 @@ class App extends React.Component {
     this.timerRef.current.setTime(1000*this.state.taskSchedule[0].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
   }
 
+  // Displays notification of current task when timer is started
+  startTimer() {
+    this.showNotification("Current Task: " + this.state.taskSchedule[this.state.current].name);
+  }
+
   render() {
     // For allowing using our custom style
     const { classes } = this.props;
@@ -180,6 +201,7 @@ class App extends React.Component {
             lastUnit="h" // Only compute time upto hours (not days)
             startImmediately={false} // Defaults to paused
             onReset={() => {this.resetTimer();}}
+            onStart={() => {this.startTimer();}}
             formatValue={numPadZeroToTwoPlaces}
             timeToUpdate={200}
             checkpoints={[
