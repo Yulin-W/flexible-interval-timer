@@ -129,12 +129,20 @@ class App extends React.Component {
   // Returns name of next task in schedule given index of current task in taskSchedule
   // current is expected to be an integer index corresponding to the task in the taskSchedule list
   nextTask(current) {
-    return this.state.taskSchedule[(current+1) % this.state.taskSchedule.length].name;
+    const nextIndex = current+1;
+    if (nextIndex === this.state.taskSchedule.length && !this.state.settings["Repeat"]) {
+      return "None (Schedule Complete)";
+    } else {
+      return this.state.taskSchedule[nextIndex % this.state.taskSchedule.length].name;
+    }
   }
 
   // Updates state such that the next task is started and timer has countdown set to corresponding period, also adds the time of the finished task to corresponding elapsed time entry
   startNextTask() {
     let current = this.state.current;
+
+    // Stop the timer
+    this.timerRef.current.stop();
 
     // Update elapsed time for the completed current task
     let currentTaskElapsedTime = this.state.taskElapsedTime;
@@ -142,10 +150,16 @@ class App extends React.Component {
     this.setState({taskElapsedTime: currentTaskElapsedTime});
 
     // Set up next task
-    current = (current+1) % this.state.taskSchedule.length;
-    this.setState({current : current});
-    this.timerRef.current.setTime(1000*this.state.taskSchedule[current].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
-    this.timerRef.current.start();
+    current += 1;
+    const currentModded = current % this.state.taskSchedule.length;
+    this.setState({current : currentModded});
+    this.timerRef.current.setTime(1000*this.state.taskSchedule[currentModded].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
+    if (current === this.state.taskSchedule.length && !this.state.settings["Repeat"]) {
+      // Do nothing if schedule has reached its end and settings say no repeat. Elasped time is kept in storage so if you press start the elapsed time will accumulate on the previous run, unless of course you clicked reset
+    } else {
+      // If not at the end of schedule or repeat is enabled, then after setting up the next task, continue the timer countdown
+      this.timerRef.current.start();
+    }
   }
 
   fetchPageData(key, extraData) {
