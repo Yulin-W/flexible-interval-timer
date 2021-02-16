@@ -5,7 +5,6 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ListItem from '@material-ui/core/ListItem';
 import PeriodInput from './PeriodInput.js';
 import TextField from '@material-ui/core/TextField';
