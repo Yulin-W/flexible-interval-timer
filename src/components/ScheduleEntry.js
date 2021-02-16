@@ -25,21 +25,19 @@ export default function ScheduleEntry({index, isFirst, isLast, editable, entry, 
                 <Grid container item xs={8} sm={8} md={8} lg={8} xl={8} justify="center" alignItems="center">
                     <PeriodInput disabled={!editable} hr={entry.hr} min={entry.min} sec={entry.sec} editFunc={editFunc} index={index}></PeriodInput>
                 </Grid>
-                <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center">
-                    <ButtonGroup color="primary" disabled={!editable} disableElevation>
-                        <IconButton disabled={isFirst} onClick={() => {upFunc(index);}}>
-                            <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
-                        </IconButton>
-                        <IconButton disabled={isLast} onClick={() => {downFunc(index);}}>
-                            <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
-                        </IconButton>
-                        <IconButton onClick={() => {addFunc(index);}}>
-                            <AddIcon></AddIcon>
-                        </IconButton>
-                        <IconButton onClick={() => {delFunc(index);}}>
-                            <DeleteIcon></DeleteIcon>
-                        </IconButton>
-                    </ButtonGroup>
+                <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center" direction="row">
+                    <IconButton item color="primary" disabled={isFirst || !editable} disableElevation onClick={() => {upFunc(index);}}>
+                        <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
+                    </IconButton>
+                    <IconButton item color="primary" disabled={isLast || !editable} disableElevation onClick={() => {downFunc(index);}}>
+                        <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
+                    </IconButton>
+                    <IconButton item color="primary" disabled={!editable} disableElevation onClick={() => {addFunc(index);}}>
+                        <AddIcon></AddIcon>
+                    </IconButton>
+                    <IconButton item color="primary" disabled={!editable} disableElevation onClick={() => {delFunc(index);}}>
+                        <DeleteIcon></DeleteIcon>
+                    </IconButton>
                 </Grid>
             </Grid>
         </ListItem>

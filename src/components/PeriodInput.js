@@ -1,20 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    periodInput: {
-        '& .MuiTextField-root': {
-            margin: theme.spacing(1),
-        },
-    },
-}));
+import Grid from "@material-ui/core/Grid";
 
 export default function PeriodInput({ disabled, hr, min, sec, editFunc, index }) { // assumes that input default value for period is in seconds
-    const classes = useStyles();
     return (
-        <div className={classes.periodInput}>
+        <Grid container direction="row" justify="space-evenly" alignItems="center">
             <TextField
+                item
                 disabled={disabled}
                 margin="dense"
                 label="Hr"
@@ -26,6 +18,7 @@ export default function PeriodInput({ disabled, hr, min, sec, editFunc, index })
                 }}
             />
             <TextField
+                item
                 disabled={disabled}
                 margin="dense"
                 label="Min"
@@ -37,6 +30,7 @@ export default function PeriodInput({ disabled, hr, min, sec, editFunc, index })
                 }}
             />
             <TextField
+                item
                 disabled={disabled}
                 margin="dense"
                 label="Sec"
@@ -47,6 +41,6 @@ export default function PeriodInput({ disabled, hr, min, sec, editFunc, index })
                     shrink: true,
                 }}
             />
-        </div>
+        </Grid>
     );
 }

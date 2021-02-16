@@ -32,7 +32,8 @@ const theme = createMuiTheme(themeDict);
 const useStyles = theme => ({
   // Covers entire viewport
   root: {
-    minWidth: "100vh",
+    minWidth: "100vw",
+    maxWidth: "100vw",
     minHeight: "100vh",
     maxHeight: "100vh",
     display: "flex",
