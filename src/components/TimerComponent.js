@@ -45,7 +45,7 @@ class TimerComponent extends React.Component {
                     <ButtonGroup item color="primary" size="large" variant="contained">
                         <Button onClick={start}>Start</Button>
                         <Button onClick={stop}>Stop</Button>
-                        <Button onClick={() => { stop(); reset(); }}>Reset</Button>
+                        <Button onClick={reset}>Reset</Button>
                     </ButtonGroup>
                 </Box>
             </Grid>

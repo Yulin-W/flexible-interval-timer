@@ -67,7 +67,7 @@ class App extends React.Component {
 
     // State declaration
     this.state = {
-      pageValue: "timer", // Default page to display // FIXME: set the default to timer I'd imagine
+      pageValue: "schedule", // Default page to display
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         { name: "Here's a task", period: 5 },
         { name: "Here's another", period: 10 },
@@ -79,6 +79,9 @@ class App extends React.Component {
         "And a third": 0
       },
       current: 0, // Default index for task, i.e. start by default on first task with index 0 in this.state.taskSchedule
+      settings: {
+        "Repeat": true,
+      }
     }
 
     // Binding methods to this
@@ -87,9 +90,11 @@ class App extends React.Component {
     this.updateSchedule = this.updateSchedule.bind(this);
     this.startNextTask = this.startNextTask.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.resetTimerBase = this.resetTimerBase.bind(this);
     this.startTimer = this.startTimer.bind(this);
-    this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
+    this.initScheduleElapsedTime = this.initScheduleElapsedTime.bind(this);
     this.showNotification = this.showNotification.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   componentDidMount() {
@@ -106,7 +111,8 @@ class App extends React.Component {
     new Notification(content);
   }
 
-  updateScheduleElapsedTime(newSchedule) {
+  // Initialises it to have time 0 for all tasks based on the specified schedule
+  initScheduleElapsedTime(newSchedule) {
     let newTaskElapsedTime = {};
     this.state.taskSchedule.forEach((entry) => {
       newTaskElapsedTime[entry.name] = 0;
@@ -114,22 +120,29 @@ class App extends React.Component {
     this.setState({ taskElapsedTime: newTaskElapsedTime });
   }
 
-  updateSchedule(newSchedule) {
-    // Sets the new schedule
-    this.setState({ taskSchedule: newSchedule });
-    // Resets the schedule summary, i.e. the scheduleElaspedTime dictionary in this.state
-    this.updateScheduleElapsedTime(newSchedule);
+  // Update schedule alongside its settings
+  updateSchedule(newSchedule, newSettings) {
+    // Sets the new schedule and settings and only reset timer to reinitialise it after the update is complete
+    this.setState({ taskSchedule: newSchedule, settings : newSettings}, this.resetTimerBase);
   }
 
+  // Returns name of next task in schedule given index of current task in taskSchedule
+  // current is expected to be an integer index corresponding to the task in the taskSchedule list
   nextTask(current) {
-    // Returns name of next task in schedule given index of current task in taskSchedule
-    // current is expected to be an integer index corresponding to the task in the taskSchedule list
-    return this.state.taskSchedule[(current+1) % this.state.taskSchedule.length].name;
+    const nextIndex = current+1;
+    if (nextIndex === this.state.taskSchedule.length && !this.state.settings["Repeat"]) {
+      return "None (Schedule Complete)";
+    } else {
+      return this.state.taskSchedule[nextIndex % this.state.taskSchedule.length].name;
+    }
   }
 
   // Updates state such that the next task is started and timer has countdown set to corresponding period, also adds the time of the finished task to corresponding elapsed time entry
   startNextTask() {
     let current = this.state.current;
+
+    // Stop the timer
+    this.timerRef.current.stop();
 
     // Update elapsed time for the completed current task
     let currentTaskElapsedTime = this.state.taskElapsedTime;
@@ -137,10 +150,16 @@ class App extends React.Component {
     this.setState({taskElapsedTime: currentTaskElapsedTime});
 
     // Set up next task
-    current = (current+1) % this.state.taskSchedule.length;
-    this.setState({current : current});
-    this.timerRef.current.setTime(1000*this.state.taskSchedule[current].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
-    this.timerRef.current.start();
+    current += 1;
+    const currentModded = current % this.state.taskSchedule.length;
+    this.setState({current : currentModded});
+    this.timerRef.current.setTime(1000*this.state.taskSchedule[currentModded].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
+    if (current === this.state.taskSchedule.length && !this.state.settings["Repeat"]) {
+      // Do nothing if schedule has reached its end and settings say no repeat. Elasped time is kept in storage so if you press start the elapsed time will accumulate on the previous run, unless of course you clicked reset
+    } else {
+      // If not at the end of schedule or repeat is enabled, then after setting up the next task, continue the timer countdown
+      this.timerRef.current.start();
+    }
   }
 
   fetchPageData(key, extraData) {
@@ -152,7 +171,10 @@ class App extends React.Component {
         ...extraData
       };
     } else if (key === "schedule") {
-      return this.state.taskSchedule;
+      return ({
+        taskSchedule: this.state.taskSchedule,
+        settings: this.state.settings,
+      });
     } else if (key === "summary") {
       return this.state.taskElapsedTime;
     } else {
@@ -164,7 +186,10 @@ class App extends React.Component {
     if (key === "timer") {
       return null;
     } else if (key === "schedule") {
-      return this.updateSchedule;
+      return {
+        updateSchedule: this.updateSchedule,
+        changePage: this.changePage,
+      };
     } else if (key === "summary") {
       return null;
     } else {
@@ -172,16 +197,30 @@ class App extends React.Component {
     }
   }
 
+  // Calls reset method of the Timer component, differs from resetTimer inm that resetTimer is designed to be called to modify state in App after Timer's reset method is called
+  // Hence, calling this method would call the resetTimer method as well
+  resetTimerBase() {
+    this.timerRef.current.reset();
+  }
+
   // Resets task to first task and clears out elapsed time and setTime
   resetTimer() {
+    this.timerRef.current.stop(); // Required as the default reset does not stop the timer after resetting
     this.setState({current : 0});
-    this.updateScheduleElapsedTime(this.state.taskSchedule);
+    this.initScheduleElapsedTime(this.state.taskSchedule);
     this.timerRef.current.setTime(1000*this.state.taskSchedule[0].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
   }
 
   // Displays notification of current task when timer is started
   startTimer() {
     this.showNotification("Current Task: " + this.state.taskSchedule[this.state.current].name);
+  }
+
+  // Changes page specified by key
+  changePage(key) {
+    this.setState({
+      pageValue: key
+    });
   }
 
   render() {
@@ -229,11 +268,7 @@ class App extends React.Component {
           </Timer>
           <BottomNavigation
             value={this.state.pageValue}
-            onChange={(event, newValue) => {
-              this.setState({
-                pageValue: newValue
-              });
-            }}
+            onChange={(event, newValue) => {this.changePage(newValue)}}
             showLabels
             className={classes.navBar}
           >

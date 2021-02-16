@@ -65,7 +65,7 @@
 - Resolve those TODOs of problems in code
 - Resolve the warnings that appear in console
 # Potential future additions
-- Updating schedule button would send you back to the timer page
+- Cancel chances to schedule button
 - Make elapsed time update per second or be synchrous with timer instead of updating only upon task completion
 - Clear schedule button: clears schedule entirely
 - Warn that upon changing your schedule all will be lost to your previous schedule and the clock will reset

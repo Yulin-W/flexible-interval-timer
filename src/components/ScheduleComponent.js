@@ -10,6 +10,9 @@ import IconButton from "@material-ui/core/IconButton";
 import ListItem from '@material-ui/core/ListItem';
 import secondsToHms from '../scripts/secondsToHms.js';
 import hmsToSeconds from '../scripts/hmsToSeconds.js';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 const useStyles = theme => ({
     // Scrolls if content overflows and set background color
@@ -27,52 +30,60 @@ const useStyles = theme => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+    },
+    settingsContainer: {
+        position: "absolute",
+        bottom: 80,
+        left: 40
     }
 });
 
 const fabIconDict = {
-    "false":<EditIcon></EditIcon>,
-    "true":<DoneIcon></DoneIcon>
+    "false": <EditIcon></EditIcon>,
+    "true": <DoneIcon></DoneIcon>
 }
 
 class ScheduleComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data.map(entry => ({name:entry.name, ...secondsToHms(entry.period)})), // converts entries to have period split into hr, min, sec attributes
+            data: props.data.taskSchedule.map(entry => ({ name: entry.name, ...secondsToHms(entry.period) })), // converts entries to have period split into hr, min, sec attributes
             editing: false,
-        }
-        this.updateSchedule = props.func;
+            settings: props.data.settings,
+        };
+        this.updateSchedule = props.func.updateSchedule;
+        this.changePage = props.func.changePage;
         this.setEditing = this.setEditing.bind(this);
         this.shiftUpEntry = this.shiftUpEntry.bind(this);
         this.shiftDownEntry = this.shiftDownEntry.bind(this);
         this.deleteEntry = this.deleteEntry.bind(this);
         this.addEntry = this.addEntry.bind(this);
         this.editEntry = this.editEntry.bind(this);
+        this.changeSetting = this.changeSetting.bind(this);
     }
 
     shiftUpEntry(index) {
         let currentData = this.state.data;
-        [currentData[index-1], currentData[index]] = [currentData[index], currentData[index-1]];
-        this.setState({data: currentData});
+        [currentData[index - 1], currentData[index]] = [currentData[index], currentData[index - 1]];
+        this.setState({ data: currentData });
     }
 
     shiftDownEntry(index) {
         let currentData = this.state.data;
-        [currentData[index], currentData[index+1]] = [currentData[index+1], currentData[index]];
-        this.setState({data: currentData});
+        [currentData[index], currentData[index + 1]] = [currentData[index + 1], currentData[index]];
+        this.setState({ data: currentData });
     }
 
     deleteEntry(index) {
         let currentData = this.state.data;
         currentData.splice(index, 1);
-        this.setState({data: currentData});
+        this.setState({ data: currentData });
     }
 
     addEntry(index) {
         let currentData = this.state.data;
-        currentData.splice(index+1, 0, { name : "New Task", hr : 0, min : 5, sec : 0 }); // Adding the default new task
-        this.setState({data: currentData});
+        currentData.splice(index + 1, 0, { name: "New Task", hr: 0, min: 5, sec: 0 }); // Adding the default new task
+        this.setState({ data: currentData });
     }
 
     setEditing() {
@@ -80,29 +91,40 @@ class ScheduleComponent extends React.Component {
         // Update corresponding state for schedule data in parent App component given that status before edit button press was in editing, i.e. the press was to confirm the edit
         if (currentEditingState) {
             let newSchedule = this.state.data.map(entry => ({
-                name : entry.name,
-                period : hmsToSeconds({
-                    hr : entry.hr,
-                    min : entry.min,
-                    sec : entry.sec
+                name: entry.name,
+                period: hmsToSeconds({
+                    hr: entry.hr,
+                    min: entry.min,
+                    sec: entry.sec
                 })
             }))
-            this.updateSchedule(newSchedule);
+            let newSettings = this.state.settings;
+            this.updateSchedule(newSchedule, newSettings);
+            // Changes back to Timer as you've just finished updating the schedule
+            this.changePage("timer");
         }
-        this.setState({editing: !currentEditingState});
+        this.setState({ editing: !currentEditingState });
     }
 
     // Edits given attribute of entry (of given index) in state.data to specified value
     editEntry(index, key, value) {
         let currentData = this.state.data;
         currentData[index][key] = value;
-        this.setState({data: currentData});
+        this.setState({ data: currentData });
+    }
+
+    // Changes setting state in this component only
+    changeSetting(e) {
+        let currentSettings = this.state.settings;
+        currentSettings[e.target.name] = e.target.checked;
+        this.setState({ settings: currentSettings });
     }
 
     render() {
         const { classes } = this.props;
         const entries = this.state.data.map((entry, index, arr) => (
             <ScheduleEntry
+                key={entry.name}
                 index={index}
                 isFirst={index === 0}
                 isLast={index === arr.length - 1}
@@ -121,11 +143,26 @@ class ScheduleComponent extends React.Component {
                 <List>
                     {entries}
                     <ListItem className={classes.addButtonContainer}>
-                        <IconButton disabled={!this.state.editing} color="primary" onClick={() => {this.addEntry(this.state.data.length-1);}}>
+                        <IconButton disabled={!this.state.editing} color="primary" onClick={() => { this.addEntry(this.state.data.length - 1); }}>
                             <AddIcon></AddIcon>
                         </IconButton>
                     </ListItem>
                 </List>
+                <FormGroup column className={classes.settingsContainer}>
+                    {Object.entries(this.state.settings).map(entry => (
+                        <FormControlLabel
+                            key={entry[0]}
+                            control={<Switch
+                                checked={entry[1]}
+                                name={entry[0]}
+                                onChange={this.changeSetting}
+                            />}
+                            label={entry[0]}
+                            disabled={!this.state.editing}
+                            color="secondary"
+                        />
+                    ))}
+                </FormGroup>
                 <Fab color="secondary" className={classes.fab} onClick={this.setEditing}>
                     {fabIconDict[this.state.editing.toString()]}
                 </Fab>
