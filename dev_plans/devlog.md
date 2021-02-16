@@ -53,13 +53,10 @@
     - Add total time elapsed display in summary page
   - [x] 0.9.0
     - Schedule repeat or not repeat functionality
-  - [ ] 0.10.0
-    - Responsiveness check to ensure works well on mobile
   - [ ] 1.0.0 (main release, core complete)
     - Bug testing
     - Beautify
       - Change favIcon
-    - Usability testing on pc, tablet, phone; responsive ui
 # Future todo
 - Thin down code
 - Resolve those TODOs of problems in code
