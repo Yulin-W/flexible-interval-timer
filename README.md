@@ -1,10 +1,9 @@
 # Flexible-Interval-Timer
+- Hello there, this is a Material-UI React webapp for easily setting up custom interval timers for tasks with notifications. Suitable for pomodoro, 5-minute blocking, and generally whenever timed intervals are useful.
 
 [Link to App](http://yulin-w.github.io/flexible-interval-timer)
 
 ![](https://raw.githubusercontent.com/Yulin-W/flexible-interval-timer/main/demo.gif)
-
-- A Material-UI React webapp for easily setting up custom interval timers for tasks with notifications. Suitable for pomodoro, 5-minute blocking, and generally whenever timed intervals are useful. 
 
 - Features
   - Countdown timer for tasks
