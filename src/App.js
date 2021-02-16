@@ -186,7 +186,10 @@ class App extends React.Component {
     if (key === "timer") {
       return null;
     } else if (key === "schedule") {
-      return { updateSchedule: this.updateSchedule, changePage: this.changePage};
+      return {
+        updateSchedule: this.updateSchedule,
+        changePage: this.changePage,
+      };
     } else if (key === "summary") {
       return null;
     } else {
