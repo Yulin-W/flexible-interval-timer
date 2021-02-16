@@ -51,7 +51,7 @@
   - [x] 0.8.0
     - Notifications for new task
     - Add total time elapsed display in summary page
-  - [ ] 0.9.0
+  - [x] 0.9.0
     - Schedule repeat or not repeat functionality
   - [ ] 0.10.0
     - Responsiveness check to ensure works well on mobile
