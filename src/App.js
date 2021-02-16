@@ -4,10 +4,8 @@ import './App.css';
 // Import React
 import React from 'react';
 
-// Import Google Analytics and setting up
+// Import Google Analytics
 import ReactGA from 'react-ga';
-ReactGA.initialize("UA-176706567-3");
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 // Import Material UI components
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -31,6 +29,12 @@ import numPadZeroToTwoPlaces from './scripts/numPadZeroToTwoPlaces.js';
 
 // Import custom theme
 import themeDict from './themeDict.js';
+
+// Setup Google Analytics
+ReactGA.initialize("UA-176706567-3");
+ReactGA.pageview(window.location.pathname + window.location.search);
+
+// Setup theme
 const theme = createMuiTheme(themeDict);
 
 // Defining styles
