@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/flexible-interval-timer/static/css/main.316d1878.chunk.css",
-    "main.js": "/flexible-interval-timer/static/js/main.0ed0eb8b.chunk.js",
-    "main.js.map": "/flexible-interval-timer/static/js/main.0ed0eb8b.chunk.js.map",
+    "main.css": "/flexible-interval-timer/static/css/main.8971d821.chunk.css",
+    "main.js": "/flexible-interval-timer/static/js/main.95816501.chunk.js",
+    "main.js.map": "/flexible-interval-timer/static/js/main.95816501.chunk.js.map",
     "runtime-main.js": "/flexible-interval-timer/static/js/runtime-main.ff2d12ca.js",
     "runtime-main.js.map": "/flexible-interval-timer/static/js/runtime-main.ff2d12ca.js.map",
-    "static/js/2.a72a0424.chunk.js": "/flexible-interval-timer/static/js/2.a72a0424.chunk.js",
-    "static/js/2.a72a0424.chunk.js.map": "/flexible-interval-timer/static/js/2.a72a0424.chunk.js.map",
+    "static/js/2.6f71f60d.chunk.js": "/flexible-interval-timer/static/js/2.6f71f60d.chunk.js",
+    "static/js/2.6f71f60d.chunk.js.map": "/flexible-interval-timer/static/js/2.6f71f60d.chunk.js.map",
     "index.html": "/flexible-interval-timer/index.html",
-    "static/css/main.316d1878.chunk.css.map": "/flexible-interval-timer/static/css/main.316d1878.chunk.css.map",
-    "static/js/2.a72a0424.chunk.js.LICENSE.txt": "/flexible-interval-timer/static/js/2.a72a0424.chunk.js.LICENSE.txt"
+    "static/css/main.8971d821.chunk.css.map": "/flexible-interval-timer/static/css/main.8971d821.chunk.css.map",
+    "static/js/2.6f71f60d.chunk.js.LICENSE.txt": "/flexible-interval-timer/static/js/2.6f71f60d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ff2d12ca.js",
-    "static/js/2.a72a0424.chunk.js",
-    "static/css/main.316d1878.chunk.css",
-    "static/js/main.0ed0eb8b.chunk.js"
+    "static/js/2.6f71f60d.chunk.js",
+    "static/css/main.8971d821.chunk.css",
+    "static/js/main.95816501.chunk.js"
   ]
 }
