@@ -93,6 +93,7 @@ class App extends React.Component {
     this.startTimer = this.startTimer.bind(this);
     this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
     this.showNotification = this.showNotification.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   componentDidMount() {
@@ -125,9 +126,9 @@ class App extends React.Component {
     this.updateScheduleElapsedTime(newSchedule);
   }
 
+  // Returns name of next task in schedule given index of current task in taskSchedule
+  // current is expected to be an integer index corresponding to the task in the taskSchedule list
   nextTask(current) {
-    // Returns name of next task in schedule given index of current task in taskSchedule
-    // current is expected to be an integer index corresponding to the task in the taskSchedule list
     return this.state.taskSchedule[(current+1) % this.state.taskSchedule.length].name;
   }
 
@@ -171,7 +172,7 @@ class App extends React.Component {
     if (key === "timer") {
       return null;
     } else if (key === "schedule") {
-      return this.updateSchedule;
+      return { updateSchedule: this.updateSchedule, changePage: this.changePage};
     } else if (key === "summary") {
       return null;
     } else {
@@ -189,6 +190,13 @@ class App extends React.Component {
   // Displays notification of current task when timer is started
   startTimer() {
     this.showNotification("Current Task: " + this.state.taskSchedule[this.state.current].name);
+  }
+
+  // Changes page specified by key
+  changePage(key) {
+    this.setState({
+      pageValue: key
+    });
   }
 
   render() {
@@ -236,11 +244,7 @@ class App extends React.Component {
           </Timer>
           <BottomNavigation
             value={this.state.pageValue}
-            onChange={(event, newValue) => {
-              this.setState({
-                pageValue: newValue
-              });
-            }}
+            onChange={(event, newValue) => {this.changePage(newValue)}}
             showLabels
             className={classes.navBar}
           >

@@ -51,7 +51,8 @@ class ScheduleComponent extends React.Component {
             editing: false,
             settings: props.data.settings,
         }
-        this.updateSchedule = props.func;
+        this.updateSchedule = props.func.updateSchedule;
+        this.changePage = props.func.changePage;
         this.setEditing = this.setEditing.bind(this);
         this.shiftUpEntry = this.shiftUpEntry.bind(this);
         this.shiftDownEntry = this.shiftDownEntry.bind(this);
@@ -99,6 +100,8 @@ class ScheduleComponent extends React.Component {
             }))
             let newSettings = this.state.settings;
             this.updateSchedule(newSchedule, newSettings);
+            // Changes back to Timer as you've just finished updating the schedule
+            this.changePage("timer");
         }
         this.setState({ editing: !currentEditingState });
     }
@@ -121,6 +124,7 @@ class ScheduleComponent extends React.Component {
         const { classes } = this.props;
         const entries = this.state.data.map((entry, index, arr) => (
             <ScheduleEntry
+                key={entry.name}
                 index={index}
                 isFirst={index === 0}
                 isLast={index === arr.length - 1}
@@ -147,6 +151,7 @@ class ScheduleComponent extends React.Component {
                 <FormGroup column className={classes.settingsContainer}>
                     {Object.entries(this.state.settings).map(entry => (
                         <FormControlLabel
+                            key={entry[0]}
                             control={<Switch
                                 checked={entry[1]}
                                 name={entry[0]}
