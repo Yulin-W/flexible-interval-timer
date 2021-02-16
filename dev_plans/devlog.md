@@ -32,7 +32,7 @@
 # Notes
 - Currently bind cycle task times to cycle plan, i.e. your old task times of a cycle is cleared when new task begins; new schedule calls for entirely new time tracking
 # Todo
-- Versions
+- Development Versions
   - [x] 0.1.0
     - Bottom of page menu
   - [x] 0.2.0
@@ -53,12 +53,17 @@
     - Add total time elapsed display in summary page
   - [x] 0.9.0
     - Schedule repeat or not repeat functionality
+- Official versions
   - [x] 1.0.0 (main release, core complete)
     - Bug testing
     - Beautify
       - Change favIcon
     - Google Analytics
     - Help button that default to opening on opening app
+  - [ ] 1.1.0
+    - Skip to next task option
+  - [ ] 1.2.0
+    - Beep sound on task end unless disabled (as notifications api fails on android)
 # Potential future code-related changes
 - Thin down code, try finding a better way than using React.createRef for referencing methods of the timer, e.g. reset, stop, start
 - Resolve the warnings that appear in console
