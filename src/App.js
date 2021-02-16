@@ -151,7 +151,7 @@ class App extends React.Component {
   }
 
   // Updates state such that the next task is started and timer has countdown set to corresponding period, also adds the time of the finished task to corresponding elapsed time entry
-  startNextTask() {
+  startNextTask(pause) {
     let current = this.state.current;
 
     // Stop the timer
@@ -159,7 +159,8 @@ class App extends React.Component {
 
     // Update elapsed time for the completed current task
     let currentTaskElapsedTime = this.state.taskElapsedTime;
-    currentTaskElapsedTime[this.state.taskSchedule[current].name] += this.state.taskSchedule[current].period;
+    const timeIncrement = Math.round(this.state.taskSchedule[current].period - (this.timerRef.current.getTime() - 999) / 1000); // -999 is needed as we have set our time in timer to have 999 as the checkpoint of task end, /1000 is needed to convert to s, rounding is to clean up the numbers to units of seconds
+    currentTaskElapsedTime[this.state.taskSchedule[current].name] += timeIncrement;
     this.setState({taskElapsedTime: currentTaskElapsedTime});
 
     // Set up next task
@@ -169,6 +170,8 @@ class App extends React.Component {
     this.timerRef.current.setTime(1000*this.state.taskSchedule[currentModded].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
     if (current === this.state.taskSchedule.length && !this.state.settings["Repeat"]) {
       // Do nothing if schedule has reached its end and settings say no repeat. Elasped time is kept in storage so if you press start the elapsed time will accumulate on the previous run, unless of course you clicked reset
+    } else if (pause) {
+      // Do nothing as argument was passed to pause
     } else {
       // If not at the end of schedule or repeat is enabled, then after setting up the next task, continue the timer countdown
       this.timerRef.current.start();
@@ -197,7 +200,7 @@ class App extends React.Component {
 
   fetchPageFunc(key) {
     if (key === "timer") {
-      return null;
+      return this.startNextTask;
     } else if (key === "schedule") {
       return {
         updateSchedule: this.updateSchedule,

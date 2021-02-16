@@ -32,6 +32,7 @@ class TimerComponent extends React.Component {
             <Grid container item direction="column" alignItems="center" justify="space-evenly" className={classes.timer}>
                 <Box item display="flex" flexDirection="column" alignItems="center" justifyContent="center" className={classes.taskDisplayContainer}>
                     <TaskDisplay current={current} next={next}></TaskDisplay>
+                    <Button onClick={() => this.props.func(true)} color="primary" variant="outlined" size="small">Skip</Button>
                 </Box>
                 <Box item display="flex" flexDirection="column" alignItems="center" justifyContent="center" className={classes.timerActual}>
                     <TimerDisplay

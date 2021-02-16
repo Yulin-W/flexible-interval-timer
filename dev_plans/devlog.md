@@ -60,7 +60,7 @@
       - Change favIcon
     - Google Analytics
     - Help button that default to opening on opening app
-  - [ ] 1.1.0
+  - [x] 1.1.0
     - Skip to next task option
   - [ ] 1.2.0
     - Beep sound on task end unless disabled (as notifications api fails on android)
