@@ -48,7 +48,7 @@ class ScheduleComponent extends React.Component {
         super(props);
         this.state = {
             data: props.data.taskSchedule.map(entry => ({ name: entry.name, ...secondsToHms(entry.period) })), // converts entries to have period split into hr, min, sec attributes
-            editing: false,
+            editing: false, // Defaults, i.e. starts off not editing
             settings: props.data.settings,
         };
         this.updateSchedule = props.func.updateSchedule;

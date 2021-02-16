@@ -27,6 +27,9 @@ import SummaryComponent from "./components/SummaryComponent.js";
 import Timer from 'react-compound-timer';
 import numPadZeroToTwoPlaces from './scripts/numPadZeroToTwoPlaces.js';
 
+// Import Help component
+import HelpBackdrop from './components/HelpBackdrop';
+
 // Import custom theme
 import themeDict from './themeDict.js';
 
@@ -77,7 +80,7 @@ class App extends React.Component {
 
     // State declaration
     this.state = {
-      pageValue: "schedule", // Default page to display
+      pageValue: "timer", // Default page to display
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         { name: "Task 1", period: 5 },
         { name: "Task 2", period: 8 },
@@ -287,6 +290,7 @@ class App extends React.Component {
             <BottomNavigationAction label="Summary" value="summary" icon={<BarChartIcon />} />
           </BottomNavigation>
         </Box>
+        <HelpBackdrop></HelpBackdrop>
       </ThemeProvider>
     );
   }

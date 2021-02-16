@@ -58,11 +58,13 @@
     - Beautify
       - Change favIcon
     - Google Analytics
+    - Help button that default to opening on opening app
 # Potential future code-related changes
 - Thin down code, try finding a better way than using React.createRef for referencing methods of the timer, e.g. reset, stop, start
 - Resolve the warnings that appear in console
 - - App.js file is too large, shorten it down into components
 # Potential future functionality additions
+- Moving away from schedule page whilst in edit cancels your edit, let us avoid that
 - Cancel chances to schedule button
 - Make elapsed time update per second or be synchrous with timer instead of updating only upon task completion
 - Clear schedule button: clears schedule entirely
