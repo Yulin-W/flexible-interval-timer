@@ -4,6 +4,9 @@ import './App.css';
 // Import React
 import React from 'react';
 
+// Import Google Analytics
+import ReactGA from 'react-ga';
+
 // Import Material UI components
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Box from "@material-ui/core/Box";
@@ -24,8 +27,17 @@ import SummaryComponent from "./components/SummaryComponent.js";
 import Timer from 'react-compound-timer';
 import numPadZeroToTwoPlaces from './scripts/numPadZeroToTwoPlaces.js';
 
+// Import Help component
+import HelpBackdrop from './components/HelpBackdrop';
+
 // Import custom theme
 import themeDict from './themeDict.js';
+
+// Setup Google Analytics
+ReactGA.initialize("UA-176706567-3");
+ReactGA.pageview(window.location.pathname + window.location.search);
+
+// Setup theme
 const theme = createMuiTheme(themeDict);
 
 // Defining styles
@@ -64,20 +76,20 @@ class App extends React.Component {
     super(props);
 
     // Code for allowing parent to use the setTime method of its children
-    this.timerRef = React.createRef(); // TODO: using refs is a bad pattern indeed, so maybe write own timer component to make accessing setTime easier
+    this.timerRef = React.createRef();
 
     // State declaration
     this.state = {
-      pageValue: "schedule", // Default page to display
+      pageValue: "timer", // Default page to display
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
-        { name: "Here's a task", period: 5 },
-        { name: "Here's another", period: 10 },
-        { name: "And a third", period: 15 },
+        { name: "Task 1", period: 5 },
+        { name: "Task 2", period: 8 },
+        { name: "Task 3", period: 10 },
       ],
       taskElapsedTime: { // Default taskElapsedTime corresponding to default taskSchedule
-        "Here's a task": 0,
-        "Here's another": 0,
-        "And a third": 0
+        "Task 1": 0,
+        "Task 2": 0,
+        "Task 3": 0
       },
       current: 0, // Default index for task, i.e. start by default on first task with index 0 in this.state.taskSchedule
       settings: {
@@ -278,6 +290,7 @@ class App extends React.Component {
             <BottomNavigationAction label="Summary" value="summary" icon={<BarChartIcon />} />
           </BottomNavigation>
         </Box>
+        <HelpBackdrop></HelpBackdrop>
       </ThemeProvider>
     );
   }
