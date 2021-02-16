@@ -8,6 +8,7 @@
 - Features
   - Countdown timer for tasks
   - Customizable schedule of tasks, their order and their duration
+  - Skip task
   - Choice of whether to repeat task schedule
   - Piechart summary breakdown of time use
   - Display of total time spent on schedule
