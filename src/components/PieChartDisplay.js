@@ -80,7 +80,7 @@ export default function PieChartDisplay({data, func}) {
     } else {
         return (
             <Grid container item direction="column" justify="center" alignItems="center" className={classes.summary}>
-                <Typography variant="h4">No tasks have been done</Typography>
+                <Typography variant="h5">No tasks have been done</Typography>
             </Grid>
         )
     }

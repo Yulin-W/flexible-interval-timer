@@ -27,7 +27,7 @@ export default function SummaryComponent({data, func}) {
     const hmsTotalTimeString = secondsToHmsString(dataToTotalTime(data));
     return (
         <Grid container direction="column" justify="space-evenly" alignItems="center" data-tip="" data-for="chart" className={classes.summary}>
-            <Typography variant="h3">Total Time: {hmsTotalTimeString}</Typography>
+            <Typography variant="h4">Total Time: {hmsTotalTimeString}</Typography>
             <PieChartDisplay data={data} func={func}></PieChartDisplay>
         </Grid>
     );
