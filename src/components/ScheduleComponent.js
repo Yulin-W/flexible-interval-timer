@@ -124,7 +124,7 @@ class ScheduleComponent extends React.Component {
         const { classes } = this.props;
         const entries = this.state.data.map((entry, index, arr) => (
             <ScheduleEntry
-                key={entry.name}
+                key={index}
                 index={index}
                 isFirst={index === 0}
                 isLast={index === arr.length - 1}
