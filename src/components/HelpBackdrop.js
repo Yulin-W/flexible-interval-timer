@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const helpTextTitle = "Welcome!";
 const helpTextDesc = "This is a timer for making schedules of tasks of specified durations. It is great for Pomodoro, HIIT, and many situations where interval timers are needed. Once a task is done, a notification will be made.";
-const helpStart = "To begin, try the currently loaded schedule by pressing start, or click Schedule at the bottom to make your own task list.";
+const helpStart = "To begin, try the currently loaded schedule by pressing start, or click Schedule at the bottom to make your own task list. Note that you can set periods such as 90s and not worry about converting to minutes, the app will do that for you.";
 const helpPageDescHeader = "What the three pages do";
 const helpTimerDesc = "Timer: countdown of current task and display of current/next tasks.";
 const helpScheduleDesc = "Schedule: customization of schedule of tasks is done.";
