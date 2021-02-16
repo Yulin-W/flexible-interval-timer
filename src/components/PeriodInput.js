@@ -12,7 +12,7 @@ export default function PeriodInput({ disabled, hr, min, sec, editFunc, index })
                 label="Hr"
                 value={hr}
                 type="number"
-                onChange={(e) => {editFunc(index, "hr", Number(e.target.value));}} // FIXME: whilst this avoid the dodgy string input case, it also means I cannot make input empty, i.e. delete a remaining 0
+                onChange={(e) => {editFunc(index, "hr", Number(e.target.value));}}
                 InputLabelProps={{
                     shrink: true,
                 }}

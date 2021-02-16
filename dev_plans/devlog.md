@@ -53,23 +53,20 @@
     - Add total time elapsed display in summary page
   - [x] 0.9.0
     - Schedule repeat or not repeat functionality
-  - [ ] 1.0.0 (main release, core complete)
+  - [x] 1.0.0 (main release, core complete)
     - Bug testing
     - Beautify
       - Change favIcon
-# Future todo
-- Thin down code
-- Resolve those TODOs of problems in code
+    - Google Analytics
+# Potential future code-related changes
+- Thin down code, try finding a better way than using React.createRef for referencing methods of the timer, e.g. reset, stop, start
 - Resolve the warnings that appear in console
-# Potential future additions
+- - App.js file is too large, shorten it down into components
+# Potential future functionality additions
 - Cancel chances to schedule button
 - Make elapsed time update per second or be synchrous with timer instead of updating only upon task completion
 - Clear schedule button: clears schedule entirely
 - Warn that upon changing your schedule all will be lost to your previous schedule and the clock will reset
 - Find way of storing user data, e.g. via google acount or facebook or whatnot so kinda like clockify
-- Analysis of time use in tasks via graphical means (as opposed to a table) on tab 3
 - Allow exporting of schedule cycle, current execution status, and task time counts to a json file to allow easy loading back (but ideally try to do the online account data store method)
 - Allow tasks to have descriptions added to them; but the timing is still counted as under the same overall task (though records will show finer sub tasks under the main task time)
-- Allow time change by directly clicking and inputing time to schedule entry
-- Make work well on a phone, i.e. be like a progressive webapp
-- App.js file is too large, shorten it down

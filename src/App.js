@@ -4,6 +4,11 @@ import './App.css';
 // Import React
 import React from 'react';
 
+// Import Google Analytics and setting up
+import ReactGA from 'react-ga';
+ReactGA.initialize("UA-176706567-3");
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 // Import Material UI components
 import { withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Box from "@material-ui/core/Box";
@@ -64,7 +69,7 @@ class App extends React.Component {
     super(props);
 
     // Code for allowing parent to use the setTime method of its children
-    this.timerRef = React.createRef(); // TODO: using refs is a bad pattern indeed, so maybe write own timer component to make accessing setTime easier
+    this.timerRef = React.createRef();
 
     // State declaration
     this.state = {
