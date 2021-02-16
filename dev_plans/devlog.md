@@ -70,3 +70,4 @@
 - Find way of storing user data, e.g. via google acount or facebook or whatnot so kinda like clockify
 - Allow exporting of schedule cycle, current execution status, and task time counts to a json file to allow easy loading back (but ideally try to do the online account data store method)
 - Allow tasks to have descriptions added to them; but the timing is still counted as under the same overall task (though records will show finer sub tasks under the main task time)
+- Add a help button
