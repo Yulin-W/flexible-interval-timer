@@ -90,8 +90,9 @@ class App extends React.Component {
     this.updateSchedule = this.updateSchedule.bind(this);
     this.startNextTask = this.startNextTask.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.resetTimerBase = this.resetTimerBase.bind(this);
     this.startTimer = this.startTimer.bind(this);
-    this.updateScheduleElapsedTime = this.updateScheduleElapsedTime.bind(this);
+    this.initScheduleElapsedTime = this.initScheduleElapsedTime.bind(this);
     this.showNotification = this.showNotification.bind(this);
     this.changePage = this.changePage.bind(this);
   }
@@ -110,7 +111,8 @@ class App extends React.Component {
     new Notification(content);
   }
 
-  updateScheduleElapsedTime(newSchedule) {
+  // Initialises it to have time 0 for all tasks based on the specified schedule
+  initScheduleElapsedTime(newSchedule) {
     let newTaskElapsedTime = {};
     this.state.taskSchedule.forEach((entry) => {
       newTaskElapsedTime[entry.name] = 0;
@@ -120,10 +122,8 @@ class App extends React.Component {
 
   // Update schedule alongside its settings
   updateSchedule(newSchedule, newSettings) {
-    // Sets the new schedule and settings
-    this.setState({ taskSchedule: newSchedule, settings : newSettings});
-    // Resets the schedule summary, i.e. the scheduleElaspedTime dictionary in this.state
-    this.updateScheduleElapsedTime(newSchedule);
+    // Sets the new schedule and settings and only reset timer to reinitialise it after the update is complete
+    this.setState({ taskSchedule: newSchedule, settings : newSettings}, this.resetTimerBase);
   }
 
   // Returns name of next task in schedule given index of current task in taskSchedule
@@ -197,10 +197,17 @@ class App extends React.Component {
     }
   }
 
+  // Calls reset method of the Timer component, differs from resetTimer inm that resetTimer is designed to be called to modify state in App after Timer's reset method is called
+  // Hence, calling this method would call the resetTimer method as well
+  resetTimerBase() {
+    this.timerRef.current.reset();
+  }
+
   // Resets task to first task and clears out elapsed time and setTime
   resetTimer() {
+    this.timerRef.current.stop(); // Required as the default reset does not stop the timer after resetting
     this.setState({current : 0});
-    this.updateScheduleElapsedTime(this.state.taskSchedule);
+    this.initScheduleElapsedTime(this.state.taskSchedule);
     this.timerRef.current.setTime(1000*this.state.taskSchedule[0].period + 999); // Again, we add 999 to accomodate for how checkpoint is 999
   }
 
