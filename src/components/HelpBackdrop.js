@@ -50,14 +50,14 @@ export default function HelpBackdrop() {
             </Button>
             <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
                 <Grid className={classes.helpContainer} container direction="column" justify="center" alignItems="flex-start">
-                    <Typography className={classes.helpEntry} item variant="h3">{helpTextTitle}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h6">{helpTextDesc}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h6">{helpStart}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h5">{helpPageDescHeader}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h6">{helpTimerDesc}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h6">{helpScheduleDesc}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h6">{helpSummaryDesc}</Typography>
-                    <Typography className={classes.helpEntry} item variant="h5">{helpText}</Typography>
+                    <Typography className={classes.helpEntry} item variant="h4">{helpTextTitle}</Typography>
+                    <Typography className={classes.helpEntry} item variant="body1">{helpTextDesc}</Typography>
+                    <Typography className={classes.helpEntry} item variant="body1">{helpStart}</Typography>
+                    <Typography className={classes.helpEntry} item variant="h6">{helpPageDescHeader}</Typography>
+                    <Typography className={classes.helpEntry} item variant="body1">{helpTimerDesc}</Typography>
+                    <Typography className={classes.helpEntry} item variant="body1">{helpScheduleDesc}</Typography>
+                    <Typography className={classes.helpEntry} item variant="body1">{helpSummaryDesc}</Typography>
+                    <Typography className={classes.helpEntry} item variant="h6">{helpText}</Typography>
                 </Grid>
             </Backdrop>
         </div>
