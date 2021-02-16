@@ -67,7 +67,7 @@ class App extends React.Component {
 
     // State declaration
     this.state = {
-      pageValue: "timer", // Default page to display // FIXME: set the default to timer I'd imagine
+      pageValue: "schedule", // Default page to display
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
         { name: "Here's a task", period: 5 },
         { name: "Here's another", period: 10 },
@@ -79,6 +79,9 @@ class App extends React.Component {
         "And a third": 0
       },
       current: 0, // Default index for task, i.e. start by default on first task with index 0 in this.state.taskSchedule
+      settings: {
+        "Repeat": true,
+      }
     }
 
     // Binding methods to this
@@ -114,9 +117,10 @@ class App extends React.Component {
     this.setState({ taskElapsedTime: newTaskElapsedTime });
   }
 
-  updateSchedule(newSchedule) {
-    // Sets the new schedule
-    this.setState({ taskSchedule: newSchedule });
+  // Update schedule alongside its settings
+  updateSchedule(newSchedule, newSettings) {
+    // Sets the new schedule and settings
+    this.setState({ taskSchedule: newSchedule, settings : newSettings});
     // Resets the schedule summary, i.e. the scheduleElaspedTime dictionary in this.state
     this.updateScheduleElapsedTime(newSchedule);
   }
@@ -152,7 +156,10 @@ class App extends React.Component {
         ...extraData
       };
     } else if (key === "schedule") {
-      return this.state.taskSchedule;
+      return ({
+        taskSchedule: this.state.taskSchedule,
+        settings: this.state.settings,
+      });
     } else if (key === "summary") {
       return this.state.taskElapsedTime;
     } else {
