@@ -79,14 +79,14 @@ class App extends React.Component {
     this.state = {
       pageValue: "schedule", // Default page to display
       taskSchedule: [ // Default tasks in schedule, name is task name, period is task period in seconds
-        { name: "Here's a task", period: 5 },
-        { name: "Here's another", period: 10 },
-        { name: "And a third", period: 15 },
+        { name: "Task 1", period: 5 },
+        { name: "Task 2", period: 8 },
+        { name: "Task 3", period: 10 },
       ],
       taskElapsedTime: { // Default taskElapsedTime corresponding to default taskSchedule
-        "Here's a task": 0,
-        "Here's another": 0,
-        "And a third": 0
+        "Task 1": 0,
+        "Task 2": 0,
+        "Task 3": 0
       },
       current: 0, // Default index for task, i.e. start by default on first task with index 0 in this.state.taskSchedule
       settings: {
