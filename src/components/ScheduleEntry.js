@@ -21,10 +21,10 @@ export default function ScheduleEntry({index, isFirst, isLast, editable, entry, 
                         onChange={(e) => {editFunc(index, "name", e.target.value)}}
                     />
                 </Grid>
-                <Grid container item xs={8} sm={8} md={8} lg={8} xl={8} justify="center" alignItems="center">
+                <Grid container item xs={6} sm={6} md={6} lg={6} xl={6} justify="center" alignItems="center">
                     <PeriodInput disabled={!editable} hr={entry.hr} min={entry.min} sec={entry.sec} editFunc={editFunc} index={index}></PeriodInput>
                 </Grid>
-                <Grid container item xs={2} sm={2} md={2} lg={2} xl={2} justify="flex-end" alignItems="center" direction="row">
+                <Grid container item xs={4} sm={4} md={4} lg={4} xl={4} justify="flex-end" alignItems="center" direction="row">
                     <IconButton item color="primary" disabled={isFirst || !editable} disableElevation onClick={() => {upFunc(index);}}>
                         <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
                     </IconButton>
