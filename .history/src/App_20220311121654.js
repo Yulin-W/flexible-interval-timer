@@ -33,8 +33,8 @@ import HelpBackdrop from './components/HelpBackdrop';
 // Import custom theme
 import themeDict from './themeDict.js';
 
-// Import speak
-import { speak } from './scripts/textToSpeech'
+// Import and setup text to speech
+const say = new Say('darwin' || 'win32' || 'linux')
 
 // Setup Google Analytics
 ReactGA.initialize("UA-176706567-3");
@@ -123,12 +123,13 @@ class App extends React.Component {
   }
 
   // Method to show specified content in the arguments as a notification, expects content to be a string
-  showNotification(content, voiceContent) {
+  showNotification(content) {
     // Get desktop notifications
     new Notification(content);
 
     // Get and play the speech for the notifications
-    speak(voiceContent, window.speechSynthesis)
+    say.stop()
+    say.speak(content)
   }
 
   // Initialises it to have time 0 for all tasks based on the specified schedule
@@ -236,7 +237,7 @@ class App extends React.Component {
 
   // Displays notification of current task when timer is started
   startTimer() {
-    this.showNotification("Current Task: " + this.state.taskSchedule[this.state.current].name, this.state.taskSchedule[this.state.current].name);
+    this.showNotification("Current Task: " + this.state.taskSchedule[this.state.current].name);
   }
 
   // Changes page specified by key

@@ -1,7 +1,7 @@
 {
   "homepage": "http://yulin-w.github.io/flexible-interval-timer",
   "name": "flexible-interval-timer",
-  "version": "1.2.0",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
