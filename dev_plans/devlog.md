@@ -64,6 +64,8 @@
     - Skip to next task option
   - [x] 1.2.0
     - Task voice notification
+  - [x] 1.2.1
+    - Corresponds to Issue #11 on Github
   - [ ] 1.3.0
     - Beep sound on task end unless disabled (as notifications api fails on android)
 # Potential future code-related changes
